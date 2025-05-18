@@ -1,0 +1,40 @@
+
+
+class A {
+protected:
+    void hello() {
+        cout << "Hello from A!" << endl;
+    }
+};
+
+class B : public A {
+public:
+    void callHello() {
+        hello(); // B can access A's protected function
+    }
+};
+
+int main() {
+    B obj;
+    obj.callHello(); // ✅ Works
+    // obj.hello();  ❌ Error: 'hello' is protected
+    return 0;
+}
+
+GL_STREAM_DRAW: the data is set only once and used by the GPU at most a few times.
+GL_STATIC_DRAW: the data is set only once and used many times.
+GL_DYNAMIC_DRAW: the data is changed a lot and used many times
+
+constexpr
+
+GLSL has a vector datatype that contains 1 to 4 floats based on its postfix digit
+
+A VAO stores the glBindBuffer calls when the target is GL_ELEMENT_ARRAY_BUFFER.
+This also means it stores its unbind calls so make sure you don't unbind the EBO before unbinding your VAO,
+
+
+1 pixel interpolation  in the mipmap 2 at the 
+GL_NEAREST_MIPMAP_NEAREST: takes the nearest mipmap to match the pixel size and uses nearest neighbor interpolation for texture sampling.
+GL_LINEAR_MIPMAP_NEAREST: takes the nearest mipmap level and samples that level using linear interpolation.
+GL_NEAREST_MIPMAP_LINEAR: linearly interpolates between the two mipmaps that most closely match the size of a pixel and samples the interpolated level via nearest neighbor interpolation.
+GL_LINEAR_MIPMAP_LINEAR: linearly interpolates between the two closest mipmaps and samples the interpolated level via linear interpolation.

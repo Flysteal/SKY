@@ -1,0 +1,80 @@
+#include <glad/gl.h>
+#include <GLFW/glfw3.h>
+#include <iostream>
+
+#include "Camera.h"
+#include "Shader.h"
+
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
+Camera::Camera(GLFWwindow* window, Shader& shaderRef, int width, int height) 
+    : InputManager(window), shader(shaderRef), width(width), height(height) {}
+
+
+void Camera::UpdateResolution(int newWidth, int newHeight)
+{
+    width = newWidth;
+    height = newHeight;
+}
+
+void Camera::Matrix(const char* uniform)
+{
+    // glm::mat4 proj = glm::perspective(glm::radians(45.0f), static_cast<float>(width)/static_cast<float>(height), 0.1f, 100.0f);
+
+    glm::mat4 view = glm::lookAt(Position, Position + Orientation, Up);
+    float aspectRatio = static_cast<float>(width) / static_cast<float>(height);
+    glm::mat4 projection = glm::perspective(glm::radians(45.0f), aspectRatio, 0.1f, 50.0f);
+
+    glm::mat4 camMatrix = projection * view;
+    glUniformMatrix4fv(glGetUniformLocation(shader.ID, uniform), 1, GL_FALSE, glm::value_ptr(camMatrix));
+}
+
+
+void Camera::KeyInput()
+{
+        // std::cout << "update \n";
+    if(IsKeyPressed(GLFW_KEY_S))
+    {
+        std::cout << "updates \n";
+        if (IsKeyPressedOnce(GLFW_KEY_1))
+        { shader.LoadShaders("../../SKY/game/Shaders/default.vert", "../../SKY/game/Shaders/default.frag");}
+
+        if (IsKeyPressedOnce(GLFW_KEY_2))
+        { shader.LoadShaders("../../SKY/game/Shaders/light.vert", "../../SKY/game/Shaders/light.frag");}
+
+        if (IsKeyPressedOnce(GLFW_KEY_3))
+        { shader.LoadShaders("../../SKY/game/Shaders/mTextures.vert", "../../SKY/game/Shaders/mTextures.frag");}
+
+        if (IsKeyPressedOnce(GLFW_KEY_4))
+        { shader.LoadShaders("../../SKY/game/Shaders/glm.vert", "../../SKY/game/Shaders/glm.frag");}
+    }
+
+    if (IsKeyPressedOnce(GLFW_KEY_1)){        std::cout << "updatet \n";
+        static bool a = false;  a = !a;
+
+        a ? glPolygonMode(GL_FRONT_AND_BACK, GL_LINE) :  glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    }
+
+
+    if (IsKeyPressed(GLFW_KEY_6))
+        {
+            std::cout << "hello\n";
+        }
+
+    if (IsKeyPressedToggle(GLFW_KEY_W))
+    {   
+        Position += glm::vec3{0.0f, 0.0f, 0.02f};
+        // KeyInput();
+    }
+}
+
+void Camera::MouseInput()
+{
+        if (IsMouseButtonPressdOnce(GLFW_MOUSE_BUTTON_2))
+        std::cout << "hi\n";
+}
+
+// IsKeyPressed         IsKeyPressedOnce        IsKeyPressedToggle 
+// IsMouseButtonPressed IsMouseButtonPressdOnce IsMouseButtonPressedToggle
