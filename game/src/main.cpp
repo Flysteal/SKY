@@ -38,13 +38,14 @@ int main() {
     window.Imgui =true;
 
     Shader shader;
-    shader.LoadShaders("../../SKY/game/Shaders/glm.vert", "../../SKY/game/Shaders/glm.frag");
+    shader.LoadShaders("../../SKY/game/Shaders/default.vert", "../../SKY/game/Shaders/default.frag");
 
     Camera camera(window.GetWindow(), shader, height, width);
     Gptr_camera = &camera;
 // }
 
     glfwSetWindowSizeCallback(window.GetWindow(), window_size_callback);
+
 
 // {
     VAO VAO1;
@@ -110,6 +111,5 @@ void window_size_callback(GLFWwindow* window, int width, int height)
     {
         Gptr_camera->UpdateResolution(width, height);
     }
-
     std::cout << "Resized to: " << width << " x " << height << "\n";
 }

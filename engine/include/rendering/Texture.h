@@ -14,6 +14,7 @@ public:
 	unsigned int ID;
 
 	Texture();
+	~Texture();
 
 	void Init(const std::string& image,unsigned int texType, int slot, unsigned int pixelType);
 

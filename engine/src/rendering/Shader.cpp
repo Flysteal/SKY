@@ -7,9 +7,7 @@
 
 Shader::Shader() = default;
 
-Shader::~Shader(){
-    Delete();
-}
+Shader::~Shader(){ Delete(); }
 
 void Shader::Activate() const {
     glUseProgram(ID);

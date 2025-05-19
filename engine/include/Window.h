@@ -13,6 +13,8 @@ public:
     void PollEvents();
     void SwapBuffers();
     bool ShouldClose();
+    double GetTime();
+
 
     GLFWwindow* GetWindow();
     bool Imgui;

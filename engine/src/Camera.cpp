@@ -12,6 +12,7 @@
 Camera::Camera(GLFWwindow* window, Shader& shaderRef, int width, int height) 
     : InputManager(window), shader(shaderRef), width(width), height(height) {}
 
+Camera::~Camera() = default;
 
 void Camera::UpdateResolution(int newWidth, int newHeight)
 {
@@ -34,7 +35,6 @@ void Camera::Matrix(const char* uniform)
 
 void Camera::KeyInput()
 {
-        // std::cout << "update \n";
     if(IsKeyPressed(GLFW_KEY_S))
     {
         std::cout << "updates \n";
@@ -58,15 +58,13 @@ void Camera::KeyInput()
     }
 
 
-    if (IsKeyPressed(GLFW_KEY_6))
-        {
-            std::cout << "hello\n";
-        }
+    if (IsKeyPressed(GLFW_KEY_6)){
+        std::cout << "hello\n";
+    }
 
     if (IsKeyPressedToggle(GLFW_KEY_W))
     {   
         Position += glm::vec3{0.0f, 0.0f, 0.02f};
-        // KeyInput();
     }
 }
 

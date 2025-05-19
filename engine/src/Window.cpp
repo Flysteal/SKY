@@ -53,9 +53,10 @@ GLFWwindow* Window::GetWindow()  {
     return m_Window;
 }
 
+double GetTime() { return glfwGetTime(); }
 
-    bool vsync = true;
 
+bool vsync = true;
 
 void Window::ImGuiUpdate() 
 {

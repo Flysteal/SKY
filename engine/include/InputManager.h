@@ -7,6 +7,7 @@
 class InputManager {
 public:
 	InputManager(GLFWwindow* window);
+	// ~InputManager();
 
 	bool IsKeyPressed(short int key);
 	bool IsKeyPressedOnce(short int key);

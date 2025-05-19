@@ -11,8 +11,9 @@ class Camera : private InputManager {
 public:
 
     Camera(GLFWwindow* window, Shader& shader, int height, int width);
-    void KeyInput();
+    ~Camera();
     void MouseInput();
+    void KeyInput();
 
 
     void UpdateResolution(int newWidth, int newHeight);

@@ -4,6 +4,7 @@
 
 
 Texture::Texture() = default;
+Texture::~Texture() { Delete(); }
 
 
 void Texture::Init(const std::string& image,unsigned int texType, int slot, unsigned int pixelType) {
