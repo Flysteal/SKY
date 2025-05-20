@@ -23,7 +23,7 @@ ImGui::NewFrame();
 
    ImGui::Spacing();
 
-   ImGui::Text("POS:", Position);
+   // ImGui::Text("POS:", Position);
 
    ImGui::Spacing();
 

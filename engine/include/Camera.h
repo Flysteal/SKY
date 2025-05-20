@@ -19,7 +19,7 @@ public:
     void UpdateResolution(int newWidth, int newHeight);
     void Matrix(const char* uniform);
 
-    glm::mat3 pos
+    // glm::vec3 getpos;
 
 private:
     Shader& shader;
