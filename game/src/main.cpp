@@ -10,6 +10,8 @@
 #include <iostream>
 #include <filesystem>
 
+#include "DeltaTime.h"
+
 int height = 800;
 int width = 800;
 
@@ -38,7 +40,7 @@ int main() {
     window.Imgui =true;
 
     Shader shader;
-    shader.LoadShaders("../../SKY/game/Shaders/default.vert", "../../SKY/game/Shaders/default.frag");
+    shader.LoadShaders("../../SKY/game/Shaders/glm.vert", "../../SKY/game/Shaders/glm.frag");
 
     Camera camera(window.GetWindow(), shader, height, width);
     Gptr_camera = &camera;
@@ -74,6 +76,7 @@ int main() {
 
     while (!window.ShouldClose())
     {
+        updateDeltaTime();
         glClearColor(0.1f, 0.1f, 0.2f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 

@@ -19,11 +19,13 @@ public:
     void UpdateResolution(int newWidth, int newHeight);
     void Matrix(const char* uniform);
 
-    // glm::vec3 getpos;
+    // glm::vec3 GetPosition = Position;
 
 private:
     Shader& shader;
     int height, width;
+
+     float camSpeed = 2.2;
 
     glm::vec3 Position = glm::vec3(0.0f, 0.0f, 2.0f);
     glm::vec3 Orientation = glm::vec3(0.0f, 0.0f, -1.0f);

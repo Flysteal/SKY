@@ -4,6 +4,7 @@
 
 #include "Camera.h"
 #include "Shader.h"
+#include "DeltaTime.h"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -22,15 +23,12 @@ void Camera::UpdateResolution(int newWidth, int newHeight)
 
 void Camera::Matrix(const char* uniform)
 {
-
-    // glm::mat4 view = glm::lookAt(Position, Position + Orientation, Up);
+    // const float radius = 10.0f;
+    // float camX = sin(glfwGetTime()) * radius;
+    // float camZ = cos(glfwGetTime()) * radius;
     float aspectRatio = static_cast<float>(width) / static_cast<float>(height);
 
-
-    const float radius = 10.0f;
-    float camX = sin(glfwGetTime()) * radius;
-    float camZ = cos(glfwGetTime()) * radius;
-    glm::mat4 view = glm::lookAt(glm::vec3(camX, 0.0, camZ), Position + Orientation, Up); 
+    glm::mat4 view = glm::lookAt(Position, Position + Orientation, Up); 
 
     glm::mat4 proj = glm::perspective(glm::radians(45.0f), static_cast<float>(width)/static_cast<float>(height), 0.1f, 100.0f);
     glm::mat4 projection = glm::perspective(glm::radians(45.0f), aspectRatio, 0.1f, 50.0f);
@@ -41,7 +39,25 @@ void Camera::Matrix(const char* uniform)
 
 void Camera::KeyInput()
 {
-    if(IsKeyPressed(GLFW_KEY_S))
+    static float Speed;
+    Speed = camSpeed * deltaTime;
+
+    glm::vec3 right = glm::normalize(glm::cross(Orientation, Up));
+
+    if(IsKeyPressed(GLFW_KEY_W)){
+        Position += Speed * Orientation ;
+    }
+    if(IsKeyPressed(GLFW_KEY_A)){
+        Position -= right * deltaTime;
+    }
+    if(IsKeyPressed(GLFW_KEY_S)){
+        Position -= Speed * Orientation ;
+    }
+    if(IsKeyPressed(GLFW_KEY_D)){
+        Position += right * deltaTime;
+    }
+
+    if(IsKeyPressed(GLFW_KEY_F))
     {
         if (IsKeyPressedOnce(GLFW_KEY_1))
         { shader.LoadShaders("../../SKY/game/Shaders/default.vert", "../../SKY/game/Shaders/default.frag");}
@@ -61,16 +77,6 @@ void Camera::KeyInput()
 
         a ? glPolygonMode(GL_FRONT_AND_BACK, GL_LINE) :  glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     }
-
-
-    if (IsKeyPressed(GLFW_KEY_6)){
-        std::cout << "hello\n";
-    }
-
-    if (IsKeyPressedToggle(GLFW_KEY_W))
-    {   
-        Position += glm::vec3{0.0f, 0.0f, 0.02f};
-    }
 }
 
 void Camera::MouseInput()
@@ -80,9 +86,11 @@ void Camera::MouseInput()
 
     if (IsMouseButtonPressedOnce(GLFW_MOUSE_BUTTON_1)){
     std::cout << "hi from 1\n";
-        Position = glm::vec3{0.0f, 0.0f, 0.02f};
+        Position = glm::vec3{0.0f, 0.0f, 1.0f};
     }
 }
+
+// Camera::GetPosition = Position;
 
 // IsKeyPressed         IsKeyPressedOnce        IsKeyPressedToggle 
 // IsMouseButtonPressed IsMouseButtonPressedOnce IsMouseButtonPressedToggle
