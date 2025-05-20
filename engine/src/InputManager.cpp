@@ -95,8 +95,3 @@ bool InputManager::IsMouseButtonPressedToggle(short int key)
 
     return toggleState[key];
 }
-
-void InputManager::ResetMousePos()
-{
-	
-} 

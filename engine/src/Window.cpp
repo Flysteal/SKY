@@ -18,14 +18,10 @@ Window::Window(int width, int height, const char* title){
         glfwTerminate();
         throw std::runtime_error("Failed to initialize GLAD");
     }
-
-    if (Imgui){ ImGuiInit(); };
-
 }
 
 
 Window::~Window() {
-    if (Imgui){ ImGuiShutdown(); };
     glfwDestroyWindow(m_Window);
     glfwTerminate();
 }
@@ -35,7 +31,6 @@ void Window::PollEvents()  {
 }
 
 void Window::SwapBuffers()  {
-    if (Imgui){ ImGuiUpdate(); };
     glfwSwapBuffers(m_Window);
 
 }

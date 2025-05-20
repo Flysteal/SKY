@@ -12,6 +12,9 @@
 
 #include "DeltaTime.h"
 
+#include "GLFW/glfw3.h"
+
+
 int height = 800;
 int width = 800;
 
@@ -37,7 +40,6 @@ int main() {
     std::cout << "directory: " << std::filesystem::current_path() << "\n";
 // {
     Window window(height, width, "SkyLands");
-    window.Imgui =true;
 
     Shader shader;
     shader.LoadShaders("../../SKY/game/Shaders/glm.vert", "../../SKY/game/Shaders/glm.frag");

@@ -15,15 +15,9 @@ public:
     bool ShouldClose();
     double GetTime();
 
-
     GLFWwindow* GetWindow();
-    bool Imgui;
 private:
 	GLFWwindow* m_Window;
-
-    void ImGuiInit();
-    void ImGuiUpdate();
-    void ImGuiShutdown();
 };
 
 #endif

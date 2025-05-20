@@ -10,7 +10,7 @@ class Shader;
 class Camera : private InputManager {
 public:
 
-    Camera(GLFWwindow* window, Shader& shader, int height, int width);
+    Camera(GLFWwindow* window, Shader& shaderRef, int width, int height);
     ~Camera();
     void MouseInput();
     void KeyInput();
@@ -25,7 +25,9 @@ private:
     Shader& shader;
     int height, width;
 
-     float camSpeed = 2.2;
+    bool firstMouse = true; // to handle initial mouse position setup
+
+    float camSpeed = 2.2;
 
     glm::vec3 Position = glm::vec3(0.0f, 0.0f, 2.0f);
     glm::vec3 Orientation = glm::vec3(0.0f, 0.0f, -1.0f);

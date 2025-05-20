@@ -1,8 +1,8 @@
 #ifndef INPUT_MANAGER_H
 #define INPUT_MANAGER_H
 
-#include "GLFW/glfw3.h"
-
+// #include "GLFW/glfw3.h"
+struct GLFWwindow;
 
 class InputManager {
 public:
@@ -20,7 +20,7 @@ public:
 	void MousePos();
 	void ResetMousePos();
 
-private:	
+private:
 	GLFWwindow* k_window;
 };
 

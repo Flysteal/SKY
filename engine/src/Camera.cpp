@@ -10,7 +10,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-Camera::Camera(GLFWwindow* window, Shader& shaderRef, int width, int height) 
+Camera::Camera(GLFWwindow* window, Shader& shaderRef, int width, int height)
     : InputManager(window), shader(shaderRef), width(width), height(height) {}
 
 Camera::~Camera() = default;
@@ -23,9 +23,6 @@ void Camera::UpdateResolution(int newWidth, int newHeight)
 
 void Camera::Matrix(const char* uniform)
 {
-    // const float radius = 10.0f;
-    // float camX = sin(glfwGetTime()) * radius;
-    // float camZ = cos(glfwGetTime()) * radius;
     float aspectRatio = static_cast<float>(width) / static_cast<float>(height);
 
     glm::mat4 view = glm::lookAt(Position, Position + Orientation, Up); 
