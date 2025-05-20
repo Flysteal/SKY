@@ -14,10 +14,11 @@ public:
 	bool IsKeyPressedToggle(short int key);
 
 	bool IsMouseButtonPressed(short int key);
-	bool IsMouseButtonPressdOnce(short int key);
+	bool IsMouseButtonPressedOnce(short int key);
 	bool IsMouseButtonPressedToggle(short int key); 
 
-	// void MousePos();
+	void MousePos();
+	void ResetMousePos();
 
 private:	
 	GLFWwindow* k_window;

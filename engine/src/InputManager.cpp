@@ -59,7 +59,7 @@ bool InputManager::IsMouseButtonPressed(short int key)
 	}
 }
 
-bool InputManager::IsMouseButtonPressdOnce(short int key)
+bool InputManager::IsMouseButtonPressedOnce(short int key)
 {
     static std::unordered_map<int, bool> keyWasPressed;
 
@@ -96,7 +96,7 @@ bool InputManager::IsMouseButtonPressedToggle(short int key)
     return toggleState[key];
 }
 
-// void InputManager::ResetMousePos()
-// {
+void InputManager::ResetMousePos()
+{
 	
-// } 
+} 
