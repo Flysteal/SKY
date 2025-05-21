@@ -43,12 +43,20 @@ void Camera::Matrix(const char* uniform)
 void Camera::KeyInput()
 {
     float Speed = camSpeed * deltaTime;
-    glm::vec3 right = glm::normalize(glm::cross(Orientation, Up));
 
-    if (IsKeyPressed(GLFW_KEY_W)) Position += Speed * Orientation;
-    if (IsKeyPressed(GLFW_KEY_A)) Position -= right * Speed;
-    if (IsKeyPressed(GLFW_KEY_S)) Position -= Speed * Orientation;
-    if (IsKeyPressed(GLFW_KEY_D)) Position += right * Speed;
+    // Flatten the Orientation vector on the XZ plane for forward/back movement
+    glm::vec3 flatOrientation = glm::normalize(glm::vec3(Orientation.x, 0.0f, Orientation.z));
+    // Calculate right vector based on flatOrientation and Up vector for strafing left/right
+    glm::vec3 flatRight = glm::normalize(glm::cross(flatOrientation, Up));
+    // Normalize Up vector to ensure consistent movement
+    glm::vec3 normalizedUp = glm::normalize(Up);
+
+    if (IsKeyPressed(GLFW_KEY_W)) Position += Speed * flatOrientation;
+    if (IsKeyPressed(GLFW_KEY_S)) Position -= Speed * flatOrientation;
+    if (IsKeyPressed(GLFW_KEY_A)) Position -= flatRight * Speed;
+    if (IsKeyPressed(GLFW_KEY_D)) Position += flatRight * Speed;
+    if (IsKeyPressed(GLFW_KEY_SPACE)) Position += normalizedUp * Speed;
+    if (IsKeyPressed(GLFW_KEY_LEFT_SHIFT)) Position -= normalizedUp * Speed;
 
     // Toggle polygon mode on pressing 1 once
     if (IsKeyPressedOnce(GLFW_KEY_1)) {
@@ -87,6 +95,7 @@ void Camera::KeyInput()
         MouseInput();
     }
 }
+
 
 void Camera::MouseInput()
 {
