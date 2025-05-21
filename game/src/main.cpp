@@ -13,7 +13,7 @@
 #include "DeltaTime.h"
 
 #include "GLFW/glfw3.h"
-
+#include "ImGuiSettings.h"
 
 int height = 800;
 int width = 800;
@@ -40,6 +40,7 @@ int main() {
     std::cout << "directory: " << std::filesystem::current_path() << "\n";
 // {
     Window window(height, width, "SkyLands");
+    ImGuiSettings IMGUI(window.GetWindow());
 
     Shader shader;
     shader.LoadShaders("../../SKY/game/Shaders/glm.vert", "../../SKY/game/Shaders/glm.frag");
@@ -95,11 +96,13 @@ int main() {
 
         glDrawElements(GL_TRIANGLES, sizeof(indices) / sizeof(int), GL_UNSIGNED_INT, 0);
 
+        IMGUI.Update();
         window.SwapBuffers();
         window.PollEvents();
     }
 
 
+    IMGUI.Shutdown();
     tex1.Delete();
     tex2.Delete();
     VAO1.Delete();
