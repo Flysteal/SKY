@@ -95,3 +95,56 @@ bool InputManager::IsMouseButtonPressedToggle(short int key)
 
     return toggleState[key];
 }
+
+
+void InputManager::UpdateMousePosition()
+{
+    glfwGetCursorPos(k_window, &mouseX, &mouseY);
+
+    if (firstMouse) {
+        lastMouseX = mouseX;
+        lastMouseY = mouseY;
+        firstMouse = false;
+    }
+
+    deltaX = mouseX - lastMouseX;
+    deltaY = lastMouseY - mouseY;  // Y is inverted in window coords
+
+    lastMouseX = mouseX;
+    lastMouseY = mouseY;
+}
+
+void InputManager::GetMousePosition(double& x, double& y) const
+{
+    x = mouseX;
+    y = mouseY;
+}
+
+void InputManager::GetMouseDelta(double& dx, double& dy) const
+{
+    dx = deltaX;
+    dy = deltaY;
+}
+
+void InputManager::ResetMousePos()
+{
+    firstMouse = true;
+    glfwGetCursorPos(k_window, &lastMouseX, &lastMouseY);
+    deltaX = 0.0;
+    deltaY = 0.0;
+}
+
+void InputManager::CenterMouseCursor()
+{
+    int width, height;
+    glfwGetWindowSize(k_window, &width, &height);
+    glfwSetCursorPos(k_window, width / 2.0, height / 2.0);
+
+    // Update internal state to avoid large jump next frame
+    mouseX = width / 2.0;
+    mouseY = height / 2.0;
+    lastMouseX = mouseX;
+    lastMouseY = mouseY;
+    deltaX = 0.0;
+    deltaY = 0.0;
+}

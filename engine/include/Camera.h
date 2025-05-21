@@ -2,10 +2,10 @@
 #define CAMERA_H
 
 #include "InputManager.h"
+#include "glm/vec3.hpp"
 struct GLFWwindow;
 class Shader;
 
-#include "glm/vec3.hpp"
 
 class Camera : private InputManager {
 public:
@@ -15,17 +15,19 @@ public:
     void MouseInput();
     void KeyInput();
 
-
     void UpdateResolution(int newWidth, int newHeight);
     void Matrix(const char* uniform);
-
-    // glm::vec3 GetPosition = Position;
 
 private:
     Shader& shader;
     int height, width;
 
-    bool firstMouse = true; // to handle initial mouse position setup
+    bool cursorVisible = false;
+    bool escapePressedLastFrame = false;
+    float yaw = -90.0f;
+    float pitch = 0.0f;
+    float sensitivity = 0.1f;
+
 
     float camSpeed = 2.2;
 
