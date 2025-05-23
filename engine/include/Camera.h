@@ -26,8 +26,10 @@ private:
     bool escapePressedLastFrame = false;
     float yaw = -90.0f;
     float pitch = 0.0f;
-    float sensitivity = 0.1f;
+    float fov = 70.0;
 
+    float sensitivity = 0.1f;
+    float MouseSensitivity = 3.0f;
 
     float camSpeed = 2.2;
 

@@ -20,8 +20,7 @@ public:
     void UpdateMousePosition();
     void GetMousePosition(double& x, double& y) const;
     void GetMouseDelta(double& dx, double& dy) const;
-
-    // void ScrollCallback(GLFWwindow* window, double xoffset, double yoffset) static
+    void MouseScroll(float& item, float sensitivity, bool isY);
 
     void ResetMousePos();
     void ClearMousePos();
@@ -29,6 +28,7 @@ public:
     void CenterMouseCursor();
 
 	GLFWwindow* k_window;
+
 private:
 
     double lastMouseX = 0.0;
@@ -37,6 +37,7 @@ private:
     double mouseY = 0.0;
     double deltaX = 0.0;
     double deltaY = 0.0;
+
 
     bool firstMouse = true;  // To initialize lastMouseX/Y on first frame
 };

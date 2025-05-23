@@ -36,7 +36,7 @@ void Camera::Matrix(const char* uniform)
 {
     float aspectRatio = static_cast<float>(width) / static_cast<float>(height);
     glm::mat4 view = glm::lookAt(Position, Position + Orientation, Up); 
-    glm::mat4 projection = glm::perspective(glm::radians(45.0f), aspectRatio, 0.1f, 50.0f);
+    glm::mat4 projection = glm::perspective(glm::radians(fov), aspectRatio, 0.1f, 50.0f);
     glm::mat4 camMatrix = projection * view;
     glUniformMatrix4fv(glGetUniformLocation(shader.ID, uniform), 1, GL_FALSE, glm::value_ptr(camMatrix));
 }
@@ -114,4 +114,8 @@ void Camera::MouseInput()
     front.y = sin(glm::radians(pitch));
     front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
     Orientation = glm::normalize(front);
+
+    MouseScroll(fov, MouseSensitivity, false);//false means we use the x offset
+    fov = glm::clamp(fov, 1.0f, 90.0f);
+
 }

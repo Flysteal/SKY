@@ -4,15 +4,16 @@
 
 #include <unordered_map>
 
-double scrollYOffset = 0.0;
+double p_xoffset, p_yoffset;
+
 void ScrollCallback(GLFWwindow* window, double xoffset, double yoffset) 
 {
-    scrollYOffset += yoffset;
+    p_yoffset = -yoffset;
+    p_xoffset = -xoffset;
 }
 
-
 InputManager::InputManager(GLFWwindow* window)
-: k_window(window) 
+: k_window(window)
 {
     glfwSetScrollCallback(k_window, ScrollCallback);
 }
@@ -135,6 +136,13 @@ void InputManager::GetMouseDelta(double& dx, double& dy) const
 {
     dx = deltaX;
     dy = deltaY;
+}
+
+void InputManager::MouseScroll(float& item, float sensitivity, bool isY)
+{
+    item += (isY ? p_xoffset : p_yoffset) * sensitivity;
+    p_xoffset = 0.0;
+    p_yoffset = 0.0;
 }
 
 void InputManager::ResetMousePos()
