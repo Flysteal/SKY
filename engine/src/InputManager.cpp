@@ -1,10 +1,21 @@
 #include "InputManager.h"
 #include "GLFW/glfw3.h"
+#include <iostream>
 
 #include <unordered_map>
 
+double scrollYOffset = 0.0;
+void ScrollCallback(GLFWwindow* window, double xoffset, double yoffset) 
+{
+    scrollYOffset += yoffset;
+}
+
+
 InputManager::InputManager(GLFWwindow* window)
-: k_window(window) {}
+: k_window(window) 
+{
+    glfwSetScrollCallback(k_window, ScrollCallback);
+}
 
 bool InputManager::IsKeyPressed(short int key)
 {
@@ -147,4 +158,16 @@ void InputManager::CenterMouseCursor()
     lastMouseY = mouseY;
     deltaX = 0.0;
     deltaY = 0.0;
+}
+
+void InputManager::ClearMousePos()
+{
+    firstMouse = true;
+    glfwGetCursorPos(k_window, &lastMouseX, &lastMouseY);
+    deltaX = 0.0;
+    deltaY = 0.0;
+    lastMouseX = 0.0;
+    lastMouseY = 0.0;
+    mouseX = 0.0;
+    mouseY = 0.0;
 }

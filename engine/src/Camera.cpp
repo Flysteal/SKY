@@ -21,6 +21,7 @@ Camera::Camera(GLFWwindow* window, Shader& shaderRef, int width, int height)
 
     // Initially lock and hide cursor
     glfwSetInputMode(k_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    ClearMousePos();
 }
 
 Camera::~Camera() = default;
@@ -44,19 +45,21 @@ void Camera::KeyInput()
 {
     float Speed = camSpeed * deltaTime;
 
-    // Flatten the Orientation vector on the XZ plane for forward/back movement
     glm::vec3 flatOrientation = glm::normalize(glm::vec3(Orientation.x, 0.0f, Orientation.z));
-    // Calculate right vector based on flatOrientation and Up vector for strafing left/right
     glm::vec3 flatRight = glm::normalize(glm::cross(flatOrientation, Up));
     // Normalize Up vector to ensure consistent movement
     glm::vec3 normalizedUp = glm::normalize(Up);
 
-    if (IsKeyPressed(GLFW_KEY_W)) Position += Speed * flatOrientation;
-    if (IsKeyPressed(GLFW_KEY_S)) Position -= Speed * flatOrientation;
-    if (IsKeyPressed(GLFW_KEY_A)) Position -= flatRight * Speed;
-    if (IsKeyPressed(GLFW_KEY_D)) Position += flatRight * Speed;
-    if (IsKeyPressed(GLFW_KEY_SPACE)) Position += normalizedUp * Speed;
-    if (IsKeyPressed(GLFW_KEY_LEFT_SHIFT)) Position -= normalizedUp * Speed;
+    glm::vec3 moveDir(0.0f);
+    if (IsKeyPressed(GLFW_KEY_W)) moveDir += flatOrientation;
+    if (IsKeyPressed(GLFW_KEY_S)) moveDir -= flatOrientation;
+    if (IsKeyPressed(GLFW_KEY_A)) moveDir -= flatRight;
+    if (IsKeyPressed(GLFW_KEY_D)) moveDir += flatRight;
+    if (IsKeyPressed(GLFW_KEY_SPACE)) moveDir += normalizedUp;
+    if (IsKeyPressed(GLFW_KEY_LEFT_SHIFT)) moveDir -= normalizedUp;
+
+    if (glm::length(moveDir) > 0.0f) Position += glm::normalize(moveDir) * Speed;
+
 
     // Toggle polygon mode on pressing 1 once
     if (IsKeyPressedOnce(GLFW_KEY_1)) {
@@ -65,7 +68,6 @@ void Camera::KeyInput()
         glPolygonMode(GL_FRONT_AND_BACK, wireframe ? GL_LINE : GL_FILL);
     }
 
-    // Shader loading shortcuts (F + 1..4)
     if (IsKeyPressed(GLFW_KEY_F)) {
         if (IsKeyPressedOnce(GLFW_KEY_1))
             shader.LoadShaders("../../SKY/game/Shaders/default.vert", "../../SKY/game/Shaders/default.frag");
@@ -76,7 +78,6 @@ void Camera::KeyInput()
         if (IsKeyPressedOnce(GLFW_KEY_4))
             shader.LoadShaders("../../SKY/game/Shaders/glm.vert", "../../SKY/game/Shaders/glm.frag");
     }
-
     // ESC key toggles cursor mode and mouse control
     bool escapePressed = IsKeyPressed(GLFW_KEY_ESCAPE);
     if (escapePressed && !escapePressedLastFrame) {
@@ -90,12 +91,11 @@ void Camera::KeyInput()
     }
     escapePressedLastFrame = escapePressed;
 
-    // Update orientation only if cursor is hidden (locked)
+    // Update orientation only if cursor is hidden
     if (!cursorVisible) {
         MouseInput();
     }
 }
-
 
 void Camera::MouseInput()
 {

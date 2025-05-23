@@ -17,13 +17,14 @@ public:
 	bool IsMouseButtonPressedOnce(short int key);
 	bool IsMouseButtonPressedToggle(short int key); 
 
-    void UpdateMousePosition();          // Call this each frame to update mouse info
-
-    // Get mouse position and delta since last update
+    void UpdateMousePosition();
     void GetMousePosition(double& x, double& y) const;
     void GetMouseDelta(double& dx, double& dy) const;
 
+    // void ScrollCallback(GLFWwindow* window, double xoffset, double yoffset) static
+
     void ResetMousePos();
+    void ClearMousePos();
 
     void CenterMouseCursor();
 
