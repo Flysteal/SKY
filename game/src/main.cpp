@@ -157,30 +157,35 @@ int main() {
         camera.KeyInput(shader);
         
         //
-        glm::mat4 model1 = glm::mat4(1.0f);
         shader.Activate();
-        camera.Matrix(shader, "camMatrix");
+        camera.Matrix(shader, "camMatrix"); // sets view * projection matrix uniform "camMatrix"
+
+        glm::mat4 model1 = glm::mat4(1.0f);
         shader.SetMat4("model", model1);
-        shader.setVec3("lightColor", 0.0f, 1.0f, 1.0f );
-            if (glfwGetKey(window.GetWindow(), GLFW_KEY_O)) lightPos.x += 0.1f;
-            if (glfwGetKey(window.GetWindow(), GLFW_KEY_P)) lightPos.x -= 0.1f;
+
         shader.setVec3("lightPos", lightPos);
-        shader.setVec3("objectColor", 1.0f, 0.5f, 0.31f );
         shader.setVec3("viewPos", camera.Position.x, camera.Position.y, camera.Position.z);
+
+        shader.setVec3("material.ambient", 1.0f, 0.5f, 0.31f);
+        shader.setVec3("material.diffuse", 1.0f, 0.5f, 0.31f);
+        shader.setVec3("material.specular", 0.5f, 0.5f, 0.5f);
+        shader.setFloat("material.shininess", 32.0f);
+
         tex1.Bind();
         VAO1.Bind();
-        glDrawElements(GL_TRIANGLES, sizeof(indices1) / sizeof(int), GL_UNSIGNED_INT, 0);
-
+        glDrawElements(GL_TRIANGLES, sizeof(indices1) / sizeof(unsigned int), GL_UNSIGNED_INT, 0);
         // 
         glm::mat4 model2 = glm::mat4(1.0f);
-        model2 = glm::translate(model2, lightPos); // move 2 units on X
+        model2 = glm::translate(model2, lightPos); // move 2 units on X 
+            if (glfwGetKey(window.GetWindow(), GLFW_KEY_O)) lightPos.x += 0.1f;
+            if (glfwGetKey(window.GetWindow(), GLFW_KEY_P)) lightPos.x -= 0.1f;
         lightShader.Activate();
 
         camera.Matrix(lightShader, "camMatrix");
 
         lightShader.SetMat4("model", model2);
         VAO2.Bind();
-        glDrawElements(GL_TRIANGLES, sizeof(indices2) / sizeof(int), GL_UNSIGNED_INT, 0);
+        glDrawElements(GL_TRIANGLES, sizeof(indices2) / sizeof(unsigned int), GL_UNSIGNED_INT, 0);
 
 
 
