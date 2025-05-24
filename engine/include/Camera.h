@@ -20,6 +20,7 @@ public:
     void UpdateMatrix();
     void Matrix(Shader& shader, const char* uniform);
 
+    glm::vec3 Position = glm::vec3(0.0f, 0.0f, 2.0f);
 private:
     // Shader& shader;
     int height, width;
@@ -35,7 +36,6 @@ private:
 
     float camSpeed = 2.2;
 
-    glm::vec3 Position = glm::vec3(0.0f, 0.0f, 2.0f);
     glm::vec3 Orientation = glm::vec3(0.0f, 0.0f, -1.0f);
     glm::vec3 Up = glm::vec3(0.0f, 1.0f, 0.0f);
 

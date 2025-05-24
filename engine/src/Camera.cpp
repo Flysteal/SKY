@@ -76,7 +76,7 @@ void Camera::KeyInput(Shader& shader)
         if (IsKeyPressedOnce(GLFW_KEY_2))
             shader.LoadShaders("../../SKY/game/Shaders/default.vert", "../../SKY/game/Shaders/default.frag");
         if (IsKeyPressedOnce(GLFW_KEY_3))
-            shader.LoadShaders("../../SKY/game/Shaders/glm.vert", "../../SKY/game/Shaders/glm.frag");
+            shader.LoadShaders("../../SKY/game/Shaders/Phong.vert", "../../SKY/game/Shaders/Phong.frag");
         if (IsKeyPressedOnce(GLFW_KEY_4))
             shader.LoadShaders("../../SKY/game/Shaders/light.vert", "../../SKY/game/Shaders/light.frag");
     }
