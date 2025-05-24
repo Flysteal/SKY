@@ -14,6 +14,7 @@
 
 #include "GLFW/glfw3.h"
 #include "ImGuiSettings.h"
+#include "glm/vec4.hpp"
 
 int height = 800;
 int width = 800;
@@ -22,17 +23,49 @@ Camera* Gptr_camera = nullptr;
 
 void window_size_callback(GLFWwindow* window, int width, int height);
 
-float vertices[] = {
-//cord   X     Y     Z color R     G     B tcord S     T
-    -0.5f,  0.5f, 0.0f,     1.0f, 0.0f, 0.0f,   0.0f, 0.0f,// u left
-     0.5f,  0.5f, 0.0f,     0.0f, 1.0f, 0.0f,   1.0f, 0.0f,// u right
-     0.5f, -0.5f, 0.0f,     0.0f, 0.0f, 1.0f,   1.0f, 1.0f,// b right
-    -0.5f, -0.5f, 0.0f,     1.0f, 1.0f, 0.0f,   0.0f, 1.0f// b left
-}; 
-unsigned int indices[] = { // start from 0
-    0, 1, 2, 
-    0, 3, 2 
-};  
+float vertices[] =
+{ //     COORDINATES     /        COLORS      /   TexCoord  //
+    -0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f,    0.0f, 0.0f,
+    -0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,    5.0f, 0.0f,
+     0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,    0.0f, 0.0f,
+     0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f,    5.0f, 0.0f,
+     0.0f, 0.8f,  0.0f,     0.92f, 0.86f, 0.76f,    2.5f, 5.0f
+};
+
+unsigned int indices[] =
+{
+    0, 1, 2,
+    0, 2, 3,
+    0, 1, 4,
+    1, 2, 4,
+    2, 3, 4,
+    3, 0, 4
+};
+float  vertices2[] = {
+    //cord
+    -0.1f, -0.1f,  0.1f,
+    -0.1f, -0.1f, -0.1f,
+     0.1f, -0.1f, -0.1f,
+     0.1f, -0.1f,  0.1f,
+    -0.1f,  0.1f,  0.1f,
+    -0.1f,  0.1f, -0.1f,
+     0.1f,  0.1f, -0.1f,
+     0.1f,  0.1f,  0.1f
+};
+unsigned int indices2[]= {
+    0, 1, 2,
+    0, 2, 3,
+    0, 4, 7,
+    0, 7, 3,
+    3, 7, 6,
+    3, 6, 2,
+    2, 6, 5,
+    2, 5, 1,
+    1, 5, 4,
+    1, 4, 0,
+    4, 5, 6,
+    4, 6, 7
+};
 
 int main() {
 
@@ -45,14 +78,14 @@ int main() {
     Shader shader;
     shader.LoadShaders("../../SKY/game/Shaders/glm.vert", "../../SKY/game/Shaders/glm.frag");
 
-    Camera camera(window.GetWindow(), shader, height, width);
+    Camera camera(window.GetWindow(),  height, width);
     Gptr_camera = &camera;
 // }
 
     glfwSetWindowSizeCallback(window.GetWindow(), window_size_callback);
 
-
 // {
+    //
     VAO VAO1;
     VAO1.Bind();
     
@@ -67,15 +100,33 @@ int main() {
     tex1.Init("../../SKY/game/Resources/brick.jpg", GL_TEXTURE_2D, GL_TEXTURE0, GL_UNSIGNED_BYTE);
     tex1.texUnit(shader, "tex0", 0);
 
-    Texture tex2;
-    tex2.Init("../../SKY/game/Resources/icon.png", GL_TEXTURE_2D, GL_TEXTURE1, GL_UNSIGNED_BYTE);
-    tex2.texUnit(shader, "tex1", 1);
+    // Texture tex2;
+    // tex2.Init("../../SKY/game/Resources/icon.png", GL_TEXTURE_2D, GL_TEXTURE1, GL_UNSIGNED_BYTE);
+    // tex2.texUnit(shader, "tex1", 1);
 
     VAO1.Unbind();
     VBO1.Unbind();
     EBO1.Unbind();
+//
+    Shader lightShader;
+    lightShader.LoadShaders("../../SKY/game/Shaders/default.vert", "../../SKY/game/Shaders/default.frag");
+    VAO VAO2;
+    VAO2.Bind();
+
+    VBO VBO2(vertices2, sizeof(vertices2));
+    EBO EBO2(indices2, sizeof(indices2));
+
+    VAO2.LinkAttrib(VBO2, 0, 3, GL_FLOAT, 3 * sizeof(float), (void*)0);
+
+    VAO2.Unbind();
+    VBO2.Unbind();
+    EBO2.Unbind();
+    glm::vec4 lightColor = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
+
 
 // }
+    glEnable(GL_DEPTH_TEST);
+
 
     while (!window.ShouldClose())
     {
@@ -83,17 +134,26 @@ int main() {
         glClearColor(0.1f, 0.1f, 0.2f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
-        shader.Activate();
-        camera.KeyInput();
+        camera.UpdateMatrix();
+        camera.KeyInput(shader);
         
-        camera.Matrix("camMatrix");
-
+        shader.Activate();
+        camera.Matrix(shader, "camMatrix");
 
         tex1.Bind();
-        tex2.Bind();
+        // tex2.Bind();
         VAO1.Bind();
 
         glDrawElements(GL_TRIANGLES, sizeof(indices) / sizeof(int), GL_UNSIGNED_INT, 0);
+
+
+        lightShader.Activate();
+        camera.Matrix(lightShader, "camMatrix");
+
+        VAO2.Bind();
+
+        glDrawElements(GL_TRIANGLES, sizeof(indices2) / sizeof(int), GL_UNSIGNED_INT, 0);
+
 
         IMGUI.Update();
         window.SwapBuffers();
@@ -103,7 +163,7 @@ int main() {
 
     IMGUI.Shutdown();
     tex1.Delete();
-    tex2.Delete();
+    // tex2.Delete();
     VAO1.Delete();
     VBO1.Delete();
     EBO1.Delete();

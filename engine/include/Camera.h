@@ -3,6 +3,7 @@
 
 #include "InputManager.h"
 #include "glm/vec3.hpp"
+#include "glm/matrix.hpp"
 struct GLFWwindow;
 class Shader;
 
@@ -10,16 +11,17 @@ class Shader;
 class Camera : private InputManager {
 public:
 
-    Camera(GLFWwindow* window, Shader& shaderRef, int width, int height);
+    Camera(GLFWwindow* window,  int width, int height);
     ~Camera();
     void MouseInput();
-    void KeyInput();
+    void KeyInput(Shader& shader);
 
     void UpdateResolution(int newWidth, int newHeight);
-    void Matrix(const char* uniform);
+    void UpdateMatrix();
+    void Matrix(Shader& shader, const char* uniform);
 
 private:
-    Shader& shader;
+    // Shader& shader;
     int height, width;
 
     bool cursorVisible = false;
@@ -36,6 +38,8 @@ private:
     glm::vec3 Position = glm::vec3(0.0f, 0.0f, 2.0f);
     glm::vec3 Orientation = glm::vec3(0.0f, 0.0f, -1.0f);
     glm::vec3 Up = glm::vec3(0.0f, 1.0f, 0.0f);
+
+    glm::mat4 camMatrix;
 };
 
 #endif

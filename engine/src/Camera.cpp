@@ -10,8 +10,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-Camera::Camera(GLFWwindow* window, Shader& shaderRef, int width, int height)
-    : InputManager(window), shader(shaderRef), width(width), height(height)
+Camera::Camera(GLFWwindow* window,  int width, int height)
+    : InputManager(window), width(width), height(height)
 {
     // Initialize yaw and pitch to your defaults
     yaw = -90.0f;
@@ -32,16 +32,20 @@ void Camera::UpdateResolution(int newWidth, int newHeight)
     height = newHeight;
 }
 
-void Camera::Matrix(const char* uniform)
+void Camera::UpdateMatrix()
 {
     float aspectRatio = static_cast<float>(width) / static_cast<float>(height);
     glm::mat4 view = glm::lookAt(Position, Position + Orientation, Up); 
     glm::mat4 projection = glm::perspective(glm::radians(fov), aspectRatio, 0.1f, 50.0f);
-    glm::mat4 camMatrix = projection * view;
+    camMatrix = projection * view;
+}
+
+void Camera::Matrix(Shader& shader, const char* uniform)
+{
     glUniformMatrix4fv(glGetUniformLocation(shader.ID, uniform), 1, GL_FALSE, glm::value_ptr(camMatrix));
 }
 
-void Camera::KeyInput()
+void Camera::KeyInput(Shader& shader)
 {
     float Speed = camSpeed * deltaTime;
 
@@ -70,11 +74,11 @@ void Camera::KeyInput()
 
     if (IsKeyPressed(GLFW_KEY_F)) {
         if (IsKeyPressedOnce(GLFW_KEY_1))
-            shader.LoadShaders("../../SKY/game/Shaders/default.vert", "../../SKY/game/Shaders/default.frag");
+            // shader.LoadShaders("../../SKY/game/Shaders/default.vert", "../../SKY/game/Shaders/default.frag");
         if (IsKeyPressedOnce(GLFW_KEY_2))
             shader.LoadShaders("../../SKY/game/Shaders/light.vert", "../../SKY/game/Shaders/light.frag");
         if (IsKeyPressedOnce(GLFW_KEY_3))
-            shader.LoadShaders("../../SKY/game/Shaders/mTextures.vert", "../../SKY/game/Shaders/mTextures.frag");
+            // shader.LoadShaders("../../SKY/game/Shaders/mTextures.vert", "../../SKY/game/Shaders/mTextures.frag");
         if (IsKeyPressedOnce(GLFW_KEY_4))
             shader.LoadShaders("../../SKY/game/Shaders/glm.vert", "../../SKY/game/Shaders/glm.frag");
     }
