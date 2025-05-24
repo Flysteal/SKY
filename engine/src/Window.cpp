@@ -30,6 +30,10 @@ void Window::PollEvents()  {
     glfwPollEvents();
 }
 
+void Window::WaitEvents(float time)  {
+glfwWaitEventsTimeout(time);
+}
+
 void Window::SwapBuffers()  {
     glfwSwapBuffers(m_Window);
 

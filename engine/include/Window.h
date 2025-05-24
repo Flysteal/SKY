@@ -11,6 +11,7 @@ public:
 	~Window();
 
     void PollEvents();
+    void WaitEvents(float time);
     void SwapBuffers();
     bool ShouldClose();
     double GetTime();
