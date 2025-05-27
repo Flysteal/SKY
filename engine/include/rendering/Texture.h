@@ -23,6 +23,7 @@ public:
 	void Unbind();
 	void Delete();
 private:
+	unsigned int format;
 	unsigned int type;
 	unsigned int t_slot;
 };

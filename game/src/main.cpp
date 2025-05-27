@@ -101,7 +101,6 @@ unsigned int indices2[]= {
 };;
 
 int main() {
-    std::cout << "directory: " << std::filesystem::current_path() << "\n";
 // {
     Window window(height, width, "SkyLands");
     ImGuiSettings IMGUI(window.GetWindow());
@@ -127,11 +126,15 @@ int main() {
     VAO1.LinkAttrib(VBO1, 0, 3, GL_FLOAT, 8 * sizeof(float), (void*)0);                // position
     VAO1.LinkAttrib(VBO1, 1, 3, GL_FLOAT, 8 * sizeof(float), (void*)(3 * sizeof(float))); // normal
     VAO1.LinkAttrib(VBO1, 2, 2, GL_FLOAT, 8 * sizeof(float), (void*)(6 * sizeof(float))); // texcoords
+// 
 
-
-    Texture tex1;
+    Texture tex1, tex1S;
+    shader.Activate();
     tex1.Init("../../SKY/game/Resources/brick.jpg", GL_TEXTURE_2D, GL_TEXTURE0, GL_UNSIGNED_BYTE);
     tex1.texUnit(shader, "tex0", 0);
+    tex1S.Init("../../SKY/game/Resources/brick_specular.jpg", GL_TEXTURE_2D, GL_TEXTURE1, GL_UNSIGNED_BYTE);
+    tex1S.texUnit(shader, "tex0", 0);
+
     VAO1.Unbind();
 //
     VAO VAO2;
@@ -161,32 +164,26 @@ int main() {
         camera.Matrix(shader, "camMatrix"); // sets view * projection matrix uniform "camMatrix"
 
         glm::mat4 model1 = glm::mat4(1.0f);
-        shader.SetMat4("model", model1);
+        shader.setMat4("model", model1);
 
         // Light properties
         shader.setVec3("light.position", lightPos);
-        glm::vec3 lightColor;
-        lightColor.x = sin(glfwGetTime() * 2.0f);
-        lightColor.y = sin(glfwGetTime() * 0.7f);
-        lightColor.z = sin(glfwGetTime() * 1.3f);
           
-        glm::vec3 diffuseColor = lightColor   * glm::vec3(0.5f); 
-        glm::vec3 ambientColor = diffuseColor * glm::vec3(0.2f); 
-          
-        shader.setVec3("light.ambient", ambientColor);
-        shader.setVec3("light.diffuse", diffuseColor);
+        shader.setVec3("light.ambient", 0.2f, 0.2f, 0.2f);
+        shader.setVec3("light.diffuse", 0.5f, 0.5f, 0.5f);
         shader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
 
         // Material properties
         shader.setVec3("material.ambient",  1.0f, 0.5f, 0.31f);
-        shader.setVec3("material.diffuse",  1.0f, 0.5f, 0.31f);
-        shader.setVec3("material.specular", 0.5f, 0.5f, 0.5f);
+        shader.setInt("material.diffuse", 0);
+        shader.setInt("material.specular", 1);
         shader.setFloat("material.shininess", 32.0f);
 
         // View position
         shader.setVec3("viewPos", camera.Position.x, camera.Position.y, camera.Position.z);
 
         tex1.Bind();
+        tex1S.Bind();
         VAO1.Bind();
         glDrawElements(GL_TRIANGLES, sizeof(indices1) / sizeof(unsigned int), GL_UNSIGNED_INT, 0);
         // 
@@ -198,7 +195,7 @@ int main() {
 
         camera.Matrix(lightShader, "camMatrix");
 
-        lightShader.SetMat4("model", model2);
+        lightShader.setMat4("model", model2);
         VAO2.Bind();
         glDrawElements(GL_TRIANGLES, sizeof(indices2) / sizeof(unsigned int), GL_UNSIGNED_INT, 0);
 
