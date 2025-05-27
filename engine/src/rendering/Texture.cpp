@@ -1,85 +1,71 @@
 #include "Texture.h"
 #include <iostream>
-#include <algorithm>
 
 
 Texture::Texture() = default;
 Texture::~Texture() { Delete(); }
 
-void Texture::Init(const std::string& image, unsigned int texType, int slot, unsigned int pixelType)
-{
-    size_t dotPos = image.find_last_of('.');
-    if (dotPos == std::string::npos) {
-        std::cout << "no extension\n";
-        return;
-    }
-
-    std::string extension = image.substr(dotPos); // includes the dot
-    std::transform(extension.begin(), extension.end(), extension.begin(), ::tolower); // lowercase for consistency
-
+void Texture::Init(const std::string& image, unsigned int texType, int slot, unsigned int pixelType) {
     type = texType;
     t_slot = slot;
 
-    stbi_set_flip_vertically_on_load(false);
-
-    int widthImg, heightImg, numColCh;
-    int desiredChannels = 0;
-
-    if (extension == ".jpga" || extension == ".pnga") {
-        desiredChannels = 1;
-    }
-
-    unsigned char* bytes = stbi_load(image.c_str(), &widthImg, &heightImg, &numColCh, desiredChannels);
-    if (!bytes) {
-        std::cerr << image << " failed to load\n";
+    // Extract file extension
+    size_t dotPos = image.find_last_of('.');
+    if (dotPos == std::string::npos) {
+        std::cerr << "Texture error: No file extension found in '" << image << "'\n";
         return;
     }
+
+    std::string extension = image.substr(dotPos);
+    bool hasAlpha = (extension == ".png");
+
+    stbi_set_flip_vertically_on_load(false);
+
+    if (hasAlpha) {
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    }
+
+    int width, height, channels;
+    unsigned char* data = stbi_load(image.c_str(), &width, &height, &channels, 0);
+    if (!data) {
+        std::cerr << "Failed to load texture: " << image << "\n";
+        return;
+    }
+
+    GLenum format = hasAlpha ? GL_RGBA : GL_RGB;
 
     glGenTextures(1, &ID);
     glActiveTexture(slot);
     glBindTexture(texType, ID);
 
+    // Texture Wrapping and Filtering
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
-    if (extension == ".png" || extension == ".pnga") {
-        glEnable(GL_BLEND);
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-        glTexImage2D(texType, 0, GL_RGBA, widthImg, heightImg, 0, GL_RGBA, pixelType, bytes);
-    } else if (extension == ".jpg" || extension == ".jpga") {
-        glTexImage2D(texType, 0, GL_RGB, widthImg, heightImg, 0, GL_RGB, pixelType, bytes);
-    } else {
-        std::cout << "unknown type\n";
-        stbi_image_free(bytes);
-        glBindTexture(texType, 0);
-        return;
-    }
-
+    glTexImage2D(texType, 0, format, width, height, 0, format, pixelType, data);
     glGenerateMipmap(texType);
-    stbi_image_free(bytes);
+
+    stbi_image_free(data);
     glBindTexture(texType, 0);
 }
 
-
-void Texture::texUnit(Shader& shader, const char* uniform, unsigned int unit)
-{
-    unsigned int texUni = glGetUniformLocation(shader.ID, uniform);
-    // Shader needs to be activated before changing the value of a uniform
+void Texture::texUnit(Shader& shader, const char* uniform, unsigned int unit) {
     shader.Activate();
-    glUniform1i(texUni, unit);
+    glUniform1i(glGetUniformLocation(shader.ID, uniform), unit);
 }
 
-void Texture::Bind(){
+void Texture::Bind() {
     glActiveTexture(t_slot);
     glBindTexture(type, ID);
 }
 
-void Texture::Unbind(){
+void Texture::Unbind() {
     glBindTexture(type, 0);
 }
 
-void Texture::Delete(){
+void Texture::Delete() {
     glDeleteTextures(1, &ID);
 }
