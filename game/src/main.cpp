@@ -108,7 +108,7 @@ int main() {
     glfwSetWindowSizeCallback(window.GetWindow(), window_size_callback);
 // 
     Shader shader;
-    shader.LoadShaders("../../SKY/game/Shaders/default.vert", "../../SKY/game/Shaders/default.frag");
+shader.LoadShaders("../../SKY/game/Shaders/new.vert", "../../SKY/game/Shaders/new.frag");
 
     Shader lightShader;
     lightShader.LoadShaders("../../SKY/game/Shaders/light.vert", "../../SKY/game/Shaders/light.frag");
@@ -173,6 +173,11 @@ int main() {
         shader.setVec3("light.diffuse", 0.5f, 0.5f, 0.5f);
         shader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
 
+        shader.setVec3("light.position",  camera.Position);
+        shader.setVec3("light.direction", camera.Orientation);
+        shader.setFloat("light.cutOff", glm::cos(glm::radians(12.5f)));
+        shader.setFloat("light.outerCutOff", glm::cos(glm::radians(17.5f)));
+        
         shader.setFloat("light.constant",  1.0f);
         shader.setFloat("light.linear",    0.09f);
         shader.setFloat("light.quadratic", 0.032f);

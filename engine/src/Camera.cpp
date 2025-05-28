@@ -75,8 +75,9 @@ void Camera::KeyInput(Shader& shader)
     if (IsKeyPressed(GLFW_KEY_F)) {
         if (IsKeyPressedOnce(GLFW_KEY_2))
             shader.LoadShaders("../../SKY/game/Shaders/default.vert", "../../SKY/game/Shaders/default.frag");
-        if (IsKeyPressedOnce(GLFW_KEY_3))
-            shader.LoadShaders("../../SKY/game/Shaders/Phong.vert", "../../SKY/game/Shaders/Phong.frag");
+        if (IsKeyPressedToggle(GLFW_KEY_3)){
+            shader.LoadShaders("../../SKY/game/Shaders/new.vert", "/home/flysteal/Desktop/SKY/game/Shaders/Dif_Point_Spot/spot.frag");
+        }
         if (IsKeyPressedOnce(GLFW_KEY_4))
             shader.LoadShaders("../../SKY/game/Shaders/light.vert", "../../SKY/game/Shaders/light.frag");
         if (IsKeyPressedOnce(GLFW_KEY_5))
