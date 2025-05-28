@@ -148,7 +148,7 @@ int main() {
 // }
     glEnable(GL_DEPTH_TEST);
 
-    glm::vec3 lightPos = glm::vec3(1.0f, 1.0f, 1.0f);
+    glm::vec3 lightPos = glm::vec3(1.0f, 2.0f, 2.0f);
 
     while (!window.ShouldClose())
     {
@@ -168,10 +168,14 @@ int main() {
 
         // Light properties
         shader.setVec3("light.position", lightPos);
-          
+
         shader.setVec3("light.ambient", 0.2f, 0.2f, 0.2f);
         shader.setVec3("light.diffuse", 0.5f, 0.5f, 0.5f);
         shader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
+
+        shader.setFloat("light.constant",  1.0f);
+        shader.setFloat("light.linear",    0.09f);
+        shader.setFloat("light.quadratic", 0.032f);
 
         // Material properties
         shader.setVec3("material.ambient",  1.0f, 0.5f, 0.31f);
