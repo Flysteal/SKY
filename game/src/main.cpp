@@ -115,13 +115,15 @@ glm::vec3 pointLightPositions[] = {
     glm::vec3( 0.7f,  0.2f,  2.0f),
     glm::vec3( 2.3f, -3.3f, -4.0f),
     glm::vec3(-4.0f,  2.0f, -12.0f),
-    glm::vec3( 0.0f,  0.0f, -3.0f)
+    glm::vec3( 0.0f,  0.0f, -3.0f),
+    glm::vec3(-0.2f, 15.0f, -0.3f)
 };
 glm::vec3 pointLightColors[] = {
     glm::vec3(0.1f, 0.1f, 0.1f),
     glm::vec3(0.1f, 0.1f, 0.1f),
     glm::vec3(0.1f, 0.1f, 0.1f),
-    glm::vec3(0.3f, 0.1f, 0.1f)
+    glm::vec3(0.3f, 0.1f, 0.1f),
+    glm::vec3(0.8f, 0.8f, 0.8f)
 };
 
 int main() {
@@ -259,7 +261,7 @@ int main() {
 // }
 
         // LIGHT CUBES
-        for(int i = 0; i < 4; i++) {
+        for(int i = 0; i < 5; i++) {
             glm::mat4 model2 = glm::mat4(1.0f);
             model2 = glm::translate(model2, pointLightPositions[i]);
             lightShader.Activate();
