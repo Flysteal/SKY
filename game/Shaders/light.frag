@@ -1,8 +1,8 @@
 #version 330 core
-in vec3 color;
+uniform vec3 color;
 out vec4 FragColor;
 
 void main()
 {
-    FragColor = vec4(1.0, 0.98, 0.60, 1.0);
+    FragColor = vec4(color, 1.0); // Use the color from the C++ side
 }
