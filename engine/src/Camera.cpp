@@ -75,13 +75,12 @@ void Camera::KeyInput(Shader& shader)
     if (IsKeyPressed(GLFW_KEY_F)) {
         if (IsKeyPressedOnce(GLFW_KEY_2))
             shader.LoadShaders("../../SKY/game/Shaders/default.vert", "../../SKY/game/Shaders/default.frag");
-        if (IsKeyPressedOnce(GLFW_KEY_3)){
-            shader.LoadShaders("../../SKY/game/Shaders/new.vert", "/home/flysteal/Desktop/SKY/game/Shaders/Dif_Point_Spot/spot.frag");
-        }
+        if (IsKeyPressedOnce(GLFW_KEY_3))
+            shader.LoadShaders("../../SKY/game/Shaders/new.vert", "../../SKY/game/Shaders/new.frag");
         if (IsKeyPressedOnce(GLFW_KEY_4))
             shader.LoadShaders("../../SKY/game/Shaders/light.vert", "../../SKY/game/Shaders/light.frag");
-        if (IsKeyPressedOnce(GLFW_KEY_5) || GLFW_KEY_R)
-            shader.LoadShaders("../../SKY/game/Shaders/new.vert", "../../SKY/game/Shaders/new.frag");
+        if (IsKeyPressedOnce(GLFW_KEY_5))
+            shader.LoadShaders("../../SKY/game/Shaders/new.vert", "../../SKY/game/Shaders/error.frag");
     }
     // ESC key toggles cursor mode and mouse control
     bool escapePressed = IsKeyPressed(GLFW_KEY_ESCAPE);
