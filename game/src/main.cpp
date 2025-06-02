@@ -1,12 +1,9 @@
-#include "VBO.h"
-#include "VAO.h"
-#include "EBO.h"
-#include "Texture.h"
-#include "Camera.h"
 #include "Shader.h"
 #include "Window.h"
 #include "DeltaTime.h"
 #include "ImGuiSettings.h"
+
+#include "Mesh.h"
 
 #include <iostream>
 #include <filesystem>
@@ -30,101 +27,50 @@ void window_size_callback(GLFWwindow* window, int width, int height)
     }
 }
 
-float vertices1[] =
-{ //  position         / normal           /  texCoord  //
-    // Front face
-    -0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  0.0f, 0.0f, // bottom-left
-     0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  1.0f, 0.0f, // bottom-right
-     0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  1.0f, 1.0f, // top-right
-    -0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  0.0f, 1.0f, // top-left
-
-    // Back face
-    -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 0.0f, // bottom-right
-     0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f, // bottom-left
-     0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 1.0f, // top-left
-    -0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 1.0f, // top-right
-
-    // Left face
-    -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f, // top-right
-    -0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 1.0f, // top-left
-    -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f, // bottom-left
-    -0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 0.0f, // bottom-right
-
-    // Right face
-     0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f, // top-left
-     0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 1.0f, // top-right
-     0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f, // bottom-right
-     0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 0.0f, // bottom-left
-
-    // Top face
-    -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f, // top-left
-     0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 1.0f, // top-right
-     0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f, // bottom-right
-    -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 0.0f, // bottom-left
-
-    // Bottom face
-    -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 1.0f, // top-right
-     0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 1.0f, // top-left
-     0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 0.0f, // bottom-left
-    -0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 0.0f  // bottom-right
+// Vertices coordinates
+Vertex vertices[] =
+{ //               COORDINATES           /            COLORS          /           NORMALS         /       TEXTURE COORDINATES    //
+    Vertex{glm::vec3(-1.0f, 0.0f,  1.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 0.0f)},
+    Vertex{glm::vec3(-1.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 1.0f)},
+    Vertex{glm::vec3( 1.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 1.0f)},
+    Vertex{glm::vec3( 1.0f, 0.0f,  1.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 0.0f)}
 };
 
-
-unsigned int indices1[] = {
-    0,  1,  2,  0,  2,  3,    // Front face
-    4,  5,  6,  4,  6,  7,    // Back face
-    8,  9, 10,  8, 10, 11,    // Left face
-    12, 13, 14, 12, 14, 15,   // Right face
-    16, 17, 18, 16, 18, 19,   // Top face
-    20, 21, 22, 20, 22, 23    // Bottom face
+// Indices for vertices order
+unsigned int indices[] =
+{
+    0, 1, 2,
+    0, 2, 3
 };
 
+Vertex lightVertices[] =
+{ //     COORDINATES     //
+    Vertex{glm::vec3(-0.1f, -0.1f,  0.1f)},
+    Vertex{glm::vec3(-0.1f, -0.1f, -0.1f)},
+    Vertex{glm::vec3(0.1f, -0.1f, -0.1f)},
+    Vertex{glm::vec3(0.1f, -0.1f,  0.1f)},
+    Vertex{glm::vec3(-0.1f,  0.1f,  0.1f)},
+    Vertex{glm::vec3(-0.1f,  0.1f, -0.1f)},
+    Vertex{glm::vec3(0.1f,  0.1f, -0.1f)},
+    Vertex{glm::vec3(0.1f,  0.1f,  0.1f)}
+};
 
-float vertices2[] = {
-    //cord
-    -0.1f, -0.1f,  0.1f,
-    -0.1f, -0.1f, -0.1f,
-     0.1f, -0.1f, -0.1f,
-     0.1f, -0.1f,  0.1f,
-    -0.1f,  0.1f,  0.1f,
-    -0.1f,  0.1f, -0.1f,
-     0.1f,  0.1f, -0.1f,
-     0.1f,  0.1f,  0.1f
+unsigned int lightIndices[] =
+{
+    0, 1, 2,
+    0, 2, 3,
+    0, 4, 7,
+    0, 7, 3,
+    3, 7, 6,
+    3, 6, 2,
+    2, 6, 5,
+    2, 5, 1,
+    1, 5, 4,
+    1, 4, 0,
+    4, 5, 6,
+    4, 6, 7
 };
-unsigned int indices2[]= {
-    0, 1, 2, 0, 2, 3,
-    0, 4, 7, 0, 7, 3,
-    3, 7, 6, 3, 6, 2,
-    2, 6, 5, 2, 5, 1,
-    1, 5, 4, 1, 4, 0,
-    4, 5, 6, 4, 6, 7
-};
-glm::vec3 cubePositions[] = {
-    glm::vec3( 0.0f,  0.0f,  0.0f),
-    glm::vec3( 2.0f,  5.0f, -15.0f),
-    glm::vec3(-1.5f, -2.2f, -2.5f),
-    glm::vec3(-3.8f, -2.0f, -12.3f),
-    glm::vec3( 2.4f, -0.4f, -3.5f),
-    glm::vec3(-1.7f,  3.0f, -7.5f),
-    glm::vec3( 1.3f, -2.0f, -2.5f),
-    glm::vec3( 1.5f,  2.0f, -2.5f),
-    glm::vec3( 1.5f,  0.2f, -1.5f),
-    glm::vec3(-1.3f,  1.0f, -1.5f)
-};
-glm::vec3 pointLightPositions[] = {
-    glm::vec3( 0.7f,  0.2f,  2.0f),
-    glm::vec3( 2.3f, -3.3f, -4.0f),
-    glm::vec3(-4.0f,  2.0f, -12.0f),
-    glm::vec3( 0.0f,  0.0f, -3.0f),
-    glm::vec3(-0.2f, 15.0f, -0.3f)
-};
-glm::vec3 pointLightColors[] = {
-    glm::vec3(0.1f, 0.1f, 0.1f),
-    glm::vec3(0.1f, 0.1f, 0.1f),
-    glm::vec3(0.1f, 0.1f, 0.1f),
-    glm::vec3(0.3f, 0.1f, 0.1f),
-    glm::vec3(0.8f, 0.8f, 0.8f)
-};
+
 
 int main() {
 // {
@@ -132,145 +78,70 @@ int main() {
     ImGuiSettings IMGUI(window.GetWindow());
 
     glfwSetWindowSizeCallback(window.GetWindow(), window_size_callback);
-// 
-    Shader shader;
-    shader.LoadShaders("../../SKY/game/Shaders/default.vert", "../../SKY/game/Shaders/default.frag");
-
-    Shader lightShader;
-    lightShader.LoadShaders("../../SKY/game/Shaders/light.vert", "../../SKY/game/Shaders/light.frag");
 
     Camera camera(window.GetWindow(),  height, width);
     Gptr_camera = &camera;
 // }
 // {
-    VAO VAO1;
-    VAO1.Bind();
-    
-    VBO VBO1(vertices1, sizeof(vertices1));
-    EBO EBO1(indices1, sizeof(indices1));
+    Texture textures[]
+    {
+        Texture("../../SKY/game/Resources/brick.jpg", "diffuse", GL_TEXTURE0, 0, GL_UNSIGNED_BYTE),
+        Texture("../../SKY/game/Resources/brick_specular.jpg", "specular", GL_TEXTURE1, 1, GL_UNSIGNED_BYTE)
+    };
 
-    VAO1.LinkAttrib(VBO1, 0, 3, GL_FLOAT, 8 * sizeof(float), (void*)0);                // position
-    VAO1.LinkAttrib(VBO1, 1, 3, GL_FLOAT, 8 * sizeof(float), (void*)(3 * sizeof(float))); // normal
-    VAO1.LinkAttrib(VBO1, 2, 2, GL_FLOAT, 8 * sizeof(float), (void*)(6 * sizeof(float))); // texcoords
+    Shader shaderProgram;
+    shaderProgram.LoadShaders("../../SKY/game/Shaders/new.vert", "../../SKY/game/Shaders/new.frag");
+
+    // Store mesh data in vectors for the mesh
+    std::vector <Vertex> verts(vertices, vertices + sizeof(vertices) / sizeof(Vertex));
+    std::vector <unsigned int> ind(indices, indices + sizeof(indices) / sizeof(unsigned int));
+    std::vector <Texture> tex(textures, textures + sizeof(textures) / sizeof(Texture));
+    Mesh floor(verts, ind, tex);
+
+    Shader lightShader;
+    lightShader.LoadShaders("../../SKY/game/Shaders/light.vert", "../../SKY/game/Shaders/light.frag");
+
+    // Store mesh data in vectors for the mesh
+    std::vector <Vertex> lightVerts(lightVertices, lightVertices + sizeof(lightVertices) / sizeof(Vertex));
+    std::vector <unsigned int> lightInd(lightIndices, lightIndices + sizeof(lightIndices) / sizeof(unsigned int));
+    Mesh light(lightVerts, lightInd, tex);
+
 // 
+    glm::vec4 lightColor = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
+    glm::vec3 lightPos = glm::vec3(0.5f, 0.5f, 0.5f);
+    glm::mat4 lightModel = glm::mat4(1.0f);
+    lightModel = glm::translate(lightModel, lightPos);
 
-    Texture tex1, tex1S;
-    shader.Activate();
-    tex1.Init("../../SKY/game/Resources/brick.jpg", GL_TEXTURE_2D, GL_TEXTURE0, GL_UNSIGNED_BYTE);
-    tex1.texUnit(shader, "tex0", 0);
-    tex1S.Init("../../SKY/game/Resources/brick_specular.jpg", GL_TEXTURE_2D, GL_TEXTURE1, GL_UNSIGNED_BYTE);
-    tex1S.texUnit(shader, "tex0", 0);
-
-    VAO1.Unbind();
-//
-    VAO VAO2;
-    VAO2.Bind();
-
-    VBO VBO2(vertices2, sizeof(vertices2));
-    EBO EBO2(indices2, sizeof(indices2));
-
-    VAO2.LinkAttrib(VBO2, 0, 3, GL_FLOAT, 3 * sizeof(float), (void*)0);
-    VAO2.Unbind();
+    glm::vec3 objectPos = glm::vec3(0.0f, 0.0f, 0.0f);
+    glm::mat4 objectModel = glm::mat4(1.0f);
+    objectModel = glm::translate(objectModel, objectPos);
+ 
+    lightShader.Activate();
+    lightShader.setMat4("model", lightModel);
+    lightShader.setVec4("lightColor", glm::vec4(lightColor));
+    shaderProgram.Activate();
+    shaderProgram.setInt("diffuse0", 0);
+    shaderProgram.setInt("specular0", 1);
+    shaderProgram.setMat4("model", objectModel);
+    shaderProgram.setVec4("lightColor", glm::vec4(lightColor));
+    shaderProgram.setVec3("lightPos", glm::vec3(lightPos));
 // }
+
     glEnable(GL_DEPTH_TEST);
 
     while (!window.ShouldClose())
     {
         updateDeltaTime();
-        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+        glClearColor(0.4f, 0.23f, 0.35f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
         camera.UpdateMatrix();
-        camera.KeyInput(shader);
-        
-        //
-        shader.Activate();
+        camera.KeyInput(shaderProgram);
+        camera.Matrix(shaderProgram, "camMatrix"); // sets view * projection matrix uniform "camMatrix"
 
-        // Material properties
-        shader.setInt("material.diffuse", 0);
-        shader.setInt("material.specular", 1);
-        shader.setFloat("material.shininess", 32.0f);
 
-        for (unsigned int i = 0; i < 10; i++)
-        {
-            camera.Matrix(shader, "camMatrix"); // sets view * projection matrix uniform "camMatrix"
-            glm::mat4 model1 = glm::mat4(1.0f);
-            model1 = glm::translate(model1, cubePositions[i]);
-            float angle = 20.0f * i;
-            model1 = glm::rotate(model1, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
-            shader.setMat4("model", model1);
-
-            tex1.Bind();
-            tex1S.Bind();
-            VAO1.Bind();
-            glDrawElements(GL_TRIANGLES, sizeof(indices1) / sizeof(unsigned int), GL_UNSIGNED_INT, 0);
-        }
-        // View position
-        shader.setVec3("viewPos", camera.Position.x, camera.Position.y, camera.Position.z);
-
-// {
-        // Directional light
-        shader.setVec3("dirLight.direction", -0.2f, -1.0f, -0.3f);       
-        shader.setVec3("dirLight.ambient", 0.0f, 0.0f, 0.0f);    
-        shader.setVec3("dirLight.diffuse", 0.05f, 0.05f, 0.05); 
-        shader.setVec3("dirLight.specular", 0.2f, 0.2f, 0.2f);
-        // Point light 1
-        shader.setVec3("pointLights[0].position", pointLightPositions[0].x, pointLightPositions[0].y, pointLightPositions[0].z);     
-        shader.setVec3("pointLights[0].ambient", pointLightColors[0].x * 0.1,  pointLightColors[0].y * 0.1,  pointLightColors[0].z * 0.1);       
-        shader.setVec3("pointLights[0].diffuse", pointLightColors[0].x,  pointLightColors[0].y,  pointLightColors[0].z); 
-        shader.setVec3("pointLights[0].specular", pointLightColors[0].x,  pointLightColors[0].y,  pointLightColors[0].z);
-        shader.setFloat("pointLights[0].constant", 1.0f);
-        shader.setFloat("pointLights[0].linear", 0.14);
-        shader.setFloat("pointLights[0].quadratic", 0.07);        
-        // Point light 2
-        shader.setVec3("pointLights[1].position", pointLightPositions[1].x, pointLightPositions[1].y, pointLightPositions[1].z);     
-        shader.setVec3("pointLights[1].ambient", pointLightColors[1].x * 0.1,  pointLightColors[1].y * 0.1,  pointLightColors[1].z * 0.1);       
-        shader.setVec3("pointLights[1].diffuse", pointLightColors[1].x,  pointLightColors[1].y,  pointLightColors[1].z); 
-        shader.setVec3("pointLights[1].specular", pointLightColors[1].x,  pointLightColors[1].y,  pointLightColors[1].z);
-        shader.setFloat("pointLights[1].constant", 1.0f);
-        shader.setFloat("pointLights[1].linear", 0.14);
-        shader.setFloat("pointLights[1].quadratic", 0.07);        
-        // Point light 3
-        shader.setVec3("pointLights[2].position", pointLightPositions[2].x, pointLightPositions[2].y, pointLightPositions[2].z);     
-        shader.setVec3("pointLights[2].ambient", pointLightColors[2].x * 0.1,  pointLightColors[2].y * 0.1,  pointLightColors[2].z * 0.1);       
-        shader.setVec3("pointLights[2].diffuse", pointLightColors[2].x,  pointLightColors[2].y,  pointLightColors[2].z); 
-        shader.setVec3("pointLights[2].specular" ,pointLightColors[2].x,  pointLightColors[2].y,  pointLightColors[2].z);
-        shader.setFloat("pointLights[2].constant", 1.0f);
-        shader.setFloat("pointLights[2].linear", 0.22);
-        shader.setFloat("pointLights[2].quadratic", 0.20);        
-        // Point light 4
-        shader.setVec3("pointLights[3].position", pointLightPositions[3].x, pointLightPositions[3].y, pointLightPositions[3].z);     
-        shader.setVec3("pointLights[3].ambient", pointLightColors[3].x * 0.1,  pointLightColors[3].y * 0.1,  pointLightColors[3].z * 0.1);       
-        shader.setVec3("pointLights[3].diffuse", pointLightColors[3].x,  pointLightColors[3].y,  pointLightColors[3].z); 
-        shader.setVec3("pointLights[3].specular", pointLightColors[3].x,  pointLightColors[3].y,  pointLightColors[3].z);
-        shader.setFloat("pointLights[3].constant", 1.0f);
-        shader.setFloat("pointLights[3].linear", 0.14);
-        shader.setFloat("pointLights[3].quadratic", 0.07);        
-        // SpotLight
-        shader.setVec3("spotLight.position", camera.Position.x, camera.Position.y, camera.Position.z);   
-        shader.setVec3("spotLight.direction", camera.Orientation.x, camera.Orientation.y, camera.Orientation.z);
-        shader.setVec3("spotLight.ambient", 0.0f, 0.0f, 0.0f);   
-        shader.setVec3("spotLight.diffuse", 1.0f, 1.0f, 1.0f); 
-        shader.setVec3("spotLight.specular", 1.0f, 1.0f, 1.0f);
-        shader.setFloat("spotLight.constant", 1.0f);
-        shader.setFloat("spotLight.linear", 0.09);
-        shader.setFloat("spotLight.quadratic", 0.032);            
-        shader.setFloat("spotLight.cutOff", glm::cos(glm::radians(10.0f)));
-        shader.setFloat("spotLight.outerCutOff", glm::cos(glm::radians(15.0f)));
-
-// }
-
-        // LIGHT CUBES
-        for(int i = 0; i < 5; i++) {
-            glm::mat4 model2 = glm::mat4(1.0f);
-            model2 = glm::translate(model2, pointLightPositions[i]);
-            lightShader.Activate();
-            camera.Matrix(lightShader, "camMatrix");
-            lightShader.setMat4("model", model2);
-            lightShader.setVec3("color", pointLightColors[i]);
-            VAO2.Bind();
-            glDrawElements(GL_TRIANGLES, sizeof(indices2) / sizeof(unsigned int), GL_UNSIGNED_INT, 0);
-        }
+        floor.Draw(shaderProgram, camera);
+        light.Draw(lightShader, camera);
 
         IMGUI.Update();
         window.SwapBuffers();
@@ -280,14 +151,7 @@ int main() {
 
 
     IMGUI.Shutdown();
-    tex1.Delete();
-    VAO1.Delete();
-    VAO2.Delete();
-    VBO1.Delete();
-    VBO2.Delete();
-    EBO1.Delete();
-    EBO2.Delete();
-    shader.Delete();
+    shaderProgram.Delete();
     lightShader.Delete();
     return 0;
 }

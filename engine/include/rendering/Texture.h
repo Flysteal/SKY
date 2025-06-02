@@ -12,11 +12,10 @@ class Texture
 {
 public:
 	unsigned int ID;
+	const char* type;
 
-	Texture();
+	Texture(const std::string& image, const char* texType, int slot, unsigned int t_slot, unsigned int pixelType);
 	~Texture();
-
-	void Init(const std::string& image,unsigned int texType, int slot, unsigned int pixelType);
 
 	void texUnit(Shader& shader, const char* uniform, unsigned int unit);
 	void Bind();
@@ -24,7 +23,6 @@ public:
 	void Delete();
 private:
 	unsigned int format;
-	unsigned int type;
 	unsigned int t_slot;
 };
 #endif

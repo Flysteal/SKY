@@ -1,15 +1,14 @@
 #include"VBO.h"
 
-VBO::VBO(float* vertices, GLsizeiptr size)
+VBO::~VBO() {
+    Delete();
+}
+
+VBO::VBO(std::vector<Vertex>& vertices)
 {
     glGenBuffers(1, &ID);
     glBindBuffer(GL_ARRAY_BUFFER, ID);
-    glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
-}
-
-VBO::~VBO()
-{
-    Delete();
+    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), vertices.data(), GL_STATIC_DRAW);
 }
 
 void VBO::Bind()
@@ -20,7 +19,6 @@ void VBO::Bind()
 void VBO::Unbind()
 {
     glBindBuffer(GL_ARRAY_BUFFER, 0);
-    //reset to 0
 }
 
 void VBO::Delete()

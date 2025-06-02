@@ -1,12 +1,10 @@
 #include "EBO.h"
 
-EBO::EBO(unsigned int* indices, GLsizeiptr size)
+EBO::EBO(std::vector<unsigned int>& indices)
 {
-    glEnableVertexAttribArray(1);
-
 	glGenBuffers(1, &ID);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ID);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, indices, GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), indices.data(), GL_STATIC_DRAW);
 }
 
 EBO::~EBO(){ Delete(); }
@@ -18,7 +16,7 @@ void EBO::Bind()
 
 void EBO::Unbind()
 {
-	glGenBuffers(GL_ELEMENT_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
 void EBO::Delete()

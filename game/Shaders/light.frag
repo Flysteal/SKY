@@ -1,8 +1,8 @@
-#version 330 core
-uniform vec3 color;
+#version 440 core
+uniform vec4 lightColor;
 out vec4 FragColor;
 
 void main()
 {
-    FragColor = vec4(color, 1.0); // Use the color from the C++ side
+    FragColor = vec4(lightColor);
 }
