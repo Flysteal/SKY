@@ -1,4 +1,4 @@
-#version 330 core
+#version 420 core
 out vec4 FragColor;
 
 // shader.setVec3("light.position",  camera.Position);

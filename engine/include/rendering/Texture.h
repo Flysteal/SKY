@@ -4,7 +4,7 @@
 #include<glad/gl.h>
 #include "stb_image.h"
 
-#include"Shader.h"
+#include "Shader.h"
 #include <string>
 #include <iostream>
 
@@ -17,7 +17,7 @@ public:
 	Texture(const std::string& image, const char* texType, int slot, unsigned int t_slot, unsigned int pixelType);
 	~Texture();
 
-	void texUnit(Shader& shader, const char* uniform, unsigned int unit);
+	void texUnit(Shader& shader, const std::string& uniform, unsigned int unit);
 	void Bind();
 	void Unbind();
 	void Delete();

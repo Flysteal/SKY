@@ -1,4 +1,4 @@
-#version 440 core
+#version 420 core
 
 struct Material {
     vec3 ambient;

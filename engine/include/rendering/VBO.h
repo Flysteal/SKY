@@ -4,14 +4,8 @@
 #include "glad/gl.h"
 #include "glm/glm.hpp"
 #include <vector>
+#include "Vertex.h"
 
-struct Vertex
-{
-	glm::vec3 position;
-	glm::vec3 normal;
-	glm::vec3 color;
-	glm::vec2 texUV;
-};
 
 class VBO
 {

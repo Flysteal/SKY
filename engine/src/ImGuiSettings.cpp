@@ -19,7 +19,7 @@ ImGui::StyleColorsDark();
 
 // Initialize ImGui GLFW + OpenGL3 bindings
 ImGui_ImplGlfw_InitForOpenGL(window, true);
-ImGui_ImplOpenGL3_Init("#version 460 core");
+ImGui_ImplOpenGL3_Init("#version 420 core");
 }
 
 void ImGuiSettings::Update() 

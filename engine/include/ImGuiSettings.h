@@ -3,9 +3,10 @@
 
 struct GLFWwindow;
 
-class ImGuiSettings{
+class ImGuiSettings {
 public:
     ImGuiSettings(GLFWwindow* window);
+    ~ImGuiSettings() = default;
 
     void Update();
     void Shutdown();
@@ -15,4 +16,4 @@ private:
 
 };
 
-#endif
+#endif // IMGUI_SETTINGS_H

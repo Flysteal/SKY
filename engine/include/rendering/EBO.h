@@ -2,7 +2,7 @@
 #define EBO_H
 
 #include "glad/gl.h"
-#include<vector>
+#include <vector>
 
 
 class EBO{

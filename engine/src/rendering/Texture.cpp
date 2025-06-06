@@ -62,9 +62,9 @@ Texture::Texture(const std::string& image, const char* texType, int slot, unsign
 
 }
 
-void Texture::texUnit(Shader& shader, const char* uniform, unsigned int unit) {
+void Texture::texUnit(Shader& shader, const std::string& uniform, unsigned int unit) {
     shader.Activate();
-    glUniform1i(glGetUniformLocation(shader.ID, uniform), unit);
+    glUniform1i(glGetUniformLocation(shader.ID, uniform.c_str()), unit);
 }
 
 void Texture::Bind() {

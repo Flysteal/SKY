@@ -9,9 +9,9 @@ file(GLOB ENGINE_SOURCES
 )
 
 add_library(glad STATIC
-    ${CMAKE_SOURCE_DIR}/libs/glad2/src/gl.c)
+    ${CMAKE_SOURCE_DIR}/libs/glad244/src/gl.c)
 target_include_directories(glad PUBLIC
-    ${CMAKE_SOURCE_DIR}/libs/glad2/include/)
+    ${CMAKE_SOURCE_DIR}/libs/glad244/include/)
 
 add_library(stb STATIC
     ${CMAKE_SOURCE_DIR}/libs/stb/stb.cpp)

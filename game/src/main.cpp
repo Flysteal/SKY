@@ -29,10 +29,10 @@ void window_size_callback(GLFWwindow* window, int width, int height)
 
 // Vertices coordinates
 Vertex vertices[] =
-{ //               COORDINATES           /            COLORS          /           NORMALS         /       TEXTURE COORDINATES    //
-    Vertex{glm::vec3(-1.0f, 0.0f,  1.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 0.0f)},
-    Vertex{glm::vec3(-1.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 1.0f)},
-    Vertex{glm::vec3( 1.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 1.0f)},
+{ //               position           /            normal          /           color         /       texUV    //
+    Vertex{glm::vec3(-1.0f, 0.0f,  1.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.5f, 1.0f, 1.0f), glm::vec2(0.0f, 0.0f)},
+    Vertex{glm::vec3(-1.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f, 0.5f, 1.0f), glm::vec2(0.0f, 1.0f)},
+    Vertex{glm::vec3( 1.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f, 1.0f, 0.5f), glm::vec2(1.0f, 1.0f)},
     Vertex{glm::vec3( 1.0f, 0.0f,  1.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 0.0f)}
 };
 
@@ -44,7 +44,7 @@ unsigned int indices[] =
 };
 
 Vertex lightVertices[] =
-{ //     COORDINATES     //
+{ //     position     //
     Vertex{glm::vec3(-0.1f, -0.1f,  0.1f)},
     Vertex{glm::vec3(-0.1f, -0.1f, -0.1f)},
     Vertex{glm::vec3(0.1f, -0.1f, -0.1f)},
@@ -79,8 +79,7 @@ int main() {
 
     glfwSetWindowSizeCallback(window.GetWindow(), window_size_callback);
 
-    Camera camera(window.GetWindow(),  height, width);
-    Gptr_camera = &camera;
+    Camera camera(window.GetWindow(),  height, width); Gptr_camera = &camera;
 // }
 // {
     Texture textures[]
@@ -108,7 +107,7 @@ int main() {
 
 // 
     glm::vec4 lightColor = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
-    glm::vec3 lightPos = glm::vec3(0.5f, 0.5f, 0.5f);
+    glm::vec3 lightPos = glm::vec3(0.5f, 0.5f, 0.1f);
     glm::mat4 lightModel = glm::mat4(1.0f);
     lightModel = glm::translate(lightModel, lightPos);
 
@@ -119,12 +118,13 @@ int main() {
     lightShader.Activate();
     lightShader.setMat4("model", lightModel);
     lightShader.setVec4("lightColor", glm::vec4(lightColor));
-    shaderProgram.Activate();
-    shaderProgram.setInt("diffuse0", 0);
-    shaderProgram.setInt("specular0", 1);
-    shaderProgram.setMat4("model", objectModel);
-    shaderProgram.setVec4("lightColor", glm::vec4(lightColor));
-    shaderProgram.setVec3("lightPos", glm::vec3(lightPos));
+
+
+    // shaderProgram.Activate();
+
+
+
+
 // }
 
     glEnable(GL_DEPTH_TEST);
@@ -137,11 +137,46 @@ int main() {
 
         camera.UpdateMatrix();
         camera.KeyInput(shaderProgram);
-        camera.Matrix(shaderProgram, "camMatrix"); // sets view * projection matrix uniform "camMatrix"
+
+        // --- Draw Floor ---
+        shaderProgram.Activate();
+        shaderProgram.setMat4("model", objectModel);
+        shaderProgram.setFloat("material.shininess", 32.0f);
+
+shaderProgram.setVec3("dirLight.direction", glm::vec3(-0.2f, -1.0f, -0.3f));
+shaderProgram.setVec3("dirLight.ambient", glm::vec3(0.05f, 0.05f, 0.05f));
+shaderProgram.setVec3("dirLight.diffuse", glm::vec3(0.4f, 0.4f, 0.4f));
+shaderProgram.setVec3("dirLight.specular", glm::vec3(0.5f, 0.5f, 0.5f));
+
+
+shaderProgram.setVec3("pointLight.position", glm::vec3(lightPos));
+shaderProgram.setFloat("pointLight.constant", 1.0f);
+shaderProgram.setFloat("pointLight.linear", 0.09f);
+shaderProgram.setFloat("pointLight.quadratic", 0.032f);
+shaderProgram.setVec3("pointLight.ambient", glm::vec3(0.05f, 0.05f, 0.05f));
+shaderProgram.setVec3("pointLight.diffuse", glm::vec3(0.8f, 0.8f, 0.8f));
+shaderProgram.setVec3("pointLight.specular", glm::vec3(1.0f, 1.0f, 1.0f));
+
+shaderProgram.setVec3("spotLight.position", camera.Position);
+shaderProgram.setVec3("spotLight.direction", camera.Orientation);
+shaderProgram.setFloat("spotLight.cutOff", glm::cos(glm::radians(12.5f)));
+shaderProgram.setFloat("spotLight.outerCutOff", glm::cos(glm::radians(17.5f)));
+shaderProgram.setFloat("spotLight.constant", 1.0f);
+shaderProgram.setFloat("spotLight.linear", 0.09f);
+shaderProgram.setFloat("spotLight.quadratic", 0.032f);
+shaderProgram.setVec3("spotLight.ambient", glm::vec3(0.0f, 0.0f, 0.0f));
+shaderProgram.setVec3("spotLight.diffuse", glm::vec3(1.0f, 1.0f, 1.0f));
+shaderProgram.setVec3("spotLight.specular", glm::vec3(1.0f, 1.0f, 1.0f));
+
 
 
         floor.Draw(shaderProgram, camera);
+
+        // --- Draw Light ---
+        lightShader.Activate();
+        lightShader.setMat4("model", lightModel);
         light.Draw(lightShader, camera);
+
 
         IMGUI.Update();
         window.SwapBuffers();
