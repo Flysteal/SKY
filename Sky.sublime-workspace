@@ -1,1 +1,1334 @@
-{}
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"mode",
+				"modelMatrix"
+			],
+			[
+				"model",
+				"modelMatrix"
+			],
+			[
+				"D",
+				"Draw"
+			],
+			[
+				"i-ios",
+				"I-iostream"
+			],
+			[
+				"i-",
+				"I-array"
+			],
+			[
+				"M",
+				"Mesh"
+			],
+			[
+				"set",
+				"setVec3"
+			],
+			[
+				"c",
+				"c_str"
+			],
+			[
+				"dif",
+				"diftst"
+			],
+			[
+				"in",
+				"include"
+			],
+			[
+				"io",
+				"iostream"
+			],
+			[
+				"se",
+				"setFloat"
+			],
+			[
+				"re",
+				"result"
+			],
+			[
+				"sp",
+				"sampler2D"
+			],
+			[
+				"ve",
+				"vertices1"
+			],
+			[
+				"li",
+				"lightPos"
+			],
+			[
+				"tex",
+				"texture"
+			],
+			[
+				"W",
+				"window"
+			],
+			[
+				"wi",
+				"window"
+			],
+			[
+				"p",
+				"p_xoffset"
+			],
+			[
+				"x",
+				"xoffset"
+			],
+			[
+				"str",
+				"struct\tstruct"
+			],
+			[
+				"Im",
+				"ImGuiSettings"
+			],
+			[
+				"GLF",
+				"GLFW_KEY_1"
+			],
+			[
+				"def",
+				"default"
+			],
+			[
+				"de",
+				"Delete"
+			],
+			[
+				"K",
+				"KeyInput"
+			],
+			[
+				"Ke",
+				"KeyInput"
+			],
+			[
+				"w",
+				"width"
+			],
+			[
+				"te",
+				"tex2"
+			],
+			[
+				"Tex",
+				"Texture"
+			],
+			[
+				"Te",
+				"Texture"
+			],
+			[
+				"us",
+				"unsigned"
+			],
+			[
+				"IsKeyPress",
+				"IsKeyPressOnce"
+			],
+			[
+				"inc",
+				"include"
+			],
+			[
+				"ad",
+				"add_executable"
+			],
+			[
+				"came",
+				"cmake_minimum_required\tbuiltin"
+			],
+			[
+				"GLFWwi",
+				"GLFWwindow"
+			],
+			[
+				"ful",
+				"fullScreen"
+			],
+			[
+				"a",
+				"Activate"
+			],
+			[
+				"o",
+				"Orientation"
+			],
+			[
+				"un",
+				"Unbind"
+			],
+			[
+				"Re",
+				"Reloading"
+			],
+			[
+				"GLAD_",
+				"GLAD_SOURCES"
+			],
+			[
+				"ios",
+				"iostream"
+			],
+			[
+				"glfw",
+				"glfwDestroyWindow"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "Game/src/main.cpp",
+			"settings":
+			{
+				"buffer_size": 1927,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			},
+			"undo_stack":
+			[
+				[
+					5,
+					1,
+					"left_delete",
+					null,
+					"AQAAAGQDAAAAAAAAZAMAAAAAAAAEAAAAaG9tZQ",
+					"AQAAAAAAAAABAAAAZAMAAAAAAABoAwAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					6,
+					1,
+					"insert",
+					{
+						"characters": ".."
+					},
+					"AgAAAGQDAAAAAAAAZQMAAAAAAAAAAAAAZQMAAAAAAABmAwAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAZAMAAAAAAABkAwAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					8,
+					1,
+					"insert",
+					{
+						"characters": ".."
+					},
+					"AgAAAGMDAAAAAAAAZAMAAAAAAAAAAAAAZAMAAAAAAABlAwAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAYwMAAAAAAABjAwAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					11,
+					1,
+					"insert",
+					{
+						"characters": ".."
+					},
+					"AgAAAMsDAAAAAAAAzAMAAAAAAAAAAAAAzAMAAAAAAADNAwAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAywMAAAAAAADLAwAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					15,
+					1,
+					"insert",
+					{
+						"characters": ".."
+					},
+					"AgAAADUEAAAAAAAANgQAAAAAAAAAAAAANgQAAAAAAAA3BAAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAANQQAAAAAAAA1BAAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					18,
+					1,
+					"insert",
+					{
+						"characters": ".."
+					},
+					"AgAAADgEAAAAAAAAOQQAAAAAAAAEAAAAaG9tZTkEAAAAAAAAOgQAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAOAQAAAAAAAA8BAAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					21,
+					1,
+					"insert",
+					{
+						"characters": ".."
+					},
+					"AgAAAM4DAAAAAAAAzwMAAAAAAAAEAAAAaG9tZc8DAAAAAAAA0AMAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAzgMAAAAAAADSAwAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					25,
+					1,
+					"left_delete",
+					null,
+					"AQAAAGkDAAAAAAAAaQMAAAAAAAADAAAAZmx5",
+					"AQAAAAAAAAABAAAAaQMAAAAAAABsAwAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					28,
+					1,
+					"right_delete",
+					null,
+					"AQAAAM4DAAAAAAAAzgMAAAAAAAADAAAAZmx5",
+					"AQAAAAAAAAABAAAAzgMAAAAAAADRAwAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					31,
+					2,
+					"right_delete",
+					null,
+					"AgAAADMEAAAAAAAAMwQAAAAAAAADAAAAZmx5MwQAAAAAAAAzBAAAAAAAAAEAAAAv",
+					"AQAAAAAAAAABAAAAMwQAAAAAAAA2BAAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					32,
+					10,
+					"right_delete",
+					null,
+					"CgAAADMEAAAAAAAAMwQAAAAAAAABAAAARDMEAAAAAAAAMwQAAAAAAAABAAAAbzMEAAAAAAAAMwQAAAAAAAABAAAAYzMEAAAAAAAAMwQAAAAAAAABAAAAdTMEAAAAAAAAMwQAAAAAAAABAAAAbTMEAAAAAAAAMwQAAAAAAAABAAAAZTMEAAAAAAAAMwQAAAAAAAABAAAAbjMEAAAAAAAAMwQAAAAAAAABAAAAdDMEAAAAAAAAMwQAAAAAAAABAAAAczMEAAAAAAAAMwQAAAAAAAABAAAALw",
+					"AQAAAAAAAAABAAAAMwQAAAAAAAAzBAAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					34,
+					11,
+					"right_delete",
+					null,
+					"CwAAAM4DAAAAAAAAzgMAAAAAAAABAAAAL84DAAAAAAAAzgMAAAAAAAABAAAARM4DAAAAAAAAzgMAAAAAAAABAAAAb84DAAAAAAAAzgMAAAAAAAABAAAAY84DAAAAAAAAzgMAAAAAAAABAAAAdc4DAAAAAAAAzgMAAAAAAAABAAAAbc4DAAAAAAAAzgMAAAAAAAABAAAAZc4DAAAAAAAAzgMAAAAAAAABAAAAbs4DAAAAAAAAzgMAAAAAAAABAAAAdM4DAAAAAAAAzgMAAAAAAAABAAAAc84DAAAAAAAAzgMAAAAAAAABAAAALw",
+					"AQAAAAAAAAABAAAAzgMAAAAAAADOAwAAAAAAAAAAAAAAAH5A"
+				],
+				[
+					36,
+					10,
+					"right_delete",
+					null,
+					"CgAAAGkDAAAAAAAAaQMAAAAAAAABAAAAL2kDAAAAAAAAaQMAAAAAAAABAAAARGkDAAAAAAAAaQMAAAAAAAABAAAAb2kDAAAAAAAAaQMAAAAAAAABAAAAY2kDAAAAAAAAaQMAAAAAAAABAAAAdWkDAAAAAAAAaQMAAAAAAAABAAAAbWkDAAAAAAAAaQMAAAAAAAABAAAAZWkDAAAAAAAAaQMAAAAAAAABAAAAbmkDAAAAAAAAaQMAAAAAAAABAAAAdGkDAAAAAAAAaQMAAAAAAAABAAAAcw",
+					"AQAAAAAAAAABAAAAaQMAAAAAAABpAwAAAAAAAAAAAAAAAH5A"
+				],
+				[
+					37,
+					1,
+					"right_delete",
+					null,
+					"AQAAAGkDAAAAAAAAaQMAAAAAAAABAAAALw",
+					"AQAAAAAAAAABAAAAaQMAAAAAAABpAwAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					42,
+					1,
+					"insert",
+					{
+						"characters": "SKY"
+					},
+					"AwAAADACAAAAAAAAMQIAAAAAAAAIAAAAU2t5TGFuZHMxAgAAAAAAADICAAAAAAAAAAAAADICAAAAAAAAMwIAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAMAIAAAAAAAA4AgAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					47,
+					1,
+					"insert",
+					{
+						"characters": "SKY"
+					},
+					"AwAAAGQDAAAAAAAAZQMAAAAAAAAIAAAAU2t5TGFuZHNlAwAAAAAAAGYDAAAAAAAAAAAAAGYDAAAAAAAAZwMAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAZAMAAAAAAABsAwAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					66,
+					1,
+					"paste",
+					null,
+					"BAAAADMEAAAAAAAANgQAAAAAAAAAAAAAEwQAAAAAAAAWBAAAAAAAAAgAAABTa3lMYW5kc7kDAAAAAAAAvAMAAAAAAAAIAAAAU2t5TGFuZHNqAgAAAAAAAG0CAAAAAAAACAAAAFNreUxhbmRz",
+					"AQAAAAAAAAAEAAAAagIAAAAAAAByAgAAAAAAAAAAAAAAAPC/uQMAAAAAAADBAwAAAAAAAAAAAAAAAPC/EwQAAAAAAAAbBAAAAAAAAAAAAAAAAPC/MwQAAAAAAAAzBAAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					73,
+					4,
+					"left_delete",
+					null,
+					"BAAAACcEAAAAAAAAJwQAAAAAAAABAAAACiYEAAAAAAAAJgQAAAAAAAABAAAAWSUEAAAAAAAAJQQAAAAAAAABAAAASyQEAAAAAAAAJAQAAAAAAAABAAAAUw",
+					"AQAAAAAAAAABAAAAKAQAAAAAAAAoBAAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					74,
+					1,
+					"insert",
+					{
+						"characters": "\n"
+					},
+					"AQAAACQEAAAAAAAAJQQAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAJAQAAAAAAAAkBAAAAAAAAAAAAAAAAPC/"
+				]
+			]
+		}
+	],
+	"build_system": "Packages/User/Sky.sublime-build",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/User/Sky.sublime-build",
+					""
+				],
+				[
+					"Packages/User/Sky.sublime-build",
+					"Build"
+				],
+				[
+					"Packages/User/Sky.sublime-build",
+					"Clean"
+				]
+			],
+			[
+				"Packages/User/Sky.sublime-build",
+				"Build"
+			]
+		]
+	],
+	"build_varint": "Build",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"set Syntax c++",
+				"Set Syntax: C++"
+			],
+			[
+				"clan",
+				"Set Syntax: Cassandra Query Language"
+			],
+			[
+				"packgae ins",
+				"Package Control: Install Package"
+			],
+			[
+				"clang",
+				"Clang Format: Format Selection"
+			],
+			[
+				"package ins",
+				"Package Control: Install Package"
+			],
+			[
+				"rein",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"set syntax cma",
+				"Set Syntax: CMake"
+			],
+			[
+				"pacage ins",
+				"Package Control: Install Package"
+			],
+			[
+				"page",
+				"Package Control: Install Package"
+			],
+			[
+				"set syntax glsl",
+				"Set Syntax: GLSL"
+			],
+			[
+				"package remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"package instal",
+				"Package Control: Install Package"
+			],
+			[
+				"package re",
+				"Package Control: Remove Package"
+			],
+			[
+				"install ",
+				"Package Control: Install Package"
+			],
+			[
+				"package remoe",
+				"Package Control: Remove Package"
+			],
+			[
+				"package in",
+				"Package Control: Install Package"
+			],
+			[
+				"insta",
+				"Install Package Control"
+			],
+			[
+				"package remo",
+				"Package Control: Remove Package"
+			],
+			[
+				"package insta",
+				"Package Control: Install Package"
+			],
+			[
+				"packageins",
+				"Package Control: Install Package"
+			],
+			[
+				"package inst",
+				"Package Control: Install Package"
+			],
+			[
+				"side bar",
+				"Selection: Expand to Brackets"
+			],
+			[
+				"side",
+				"View: Toggle Side Bar"
+			],
+			[
+				"package install",
+				"Package Control: Install Package"
+			],
+			[
+				"package install ",
+				"Package Control: Install Package"
+			],
+			[
+				"package contrpack",
+				"Package Control: List Packages"
+			],
+			[
+				"packege insta",
+				"Package Control: Install Package"
+			],
+			[
+				"packege ints",
+				"Package Control: Install Package"
+			],
+			[
+				"oackage install",
+				"Package Control: Install Package"
+			],
+			[
+				"pack insta",
+				"Package Control: Install Package"
+			],
+			[
+				"terminus",
+				"Terminus: Open Default Shell in Panel"
+			],
+			[
+				"package intsall ",
+				"Package Control: Install Package"
+			],
+			[
+				"pac",
+				"Install Package Control"
+			],
+			[
+				"package insta\t",
+				"Package Control: Install Package"
+			],
+			[
+				"terminal",
+				"Terminus: Open Default Shell in Panel"
+			],
+			[
+				"package rem",
+				"Package Control: Remove Package"
+			],
+			[
+				"termi",
+				"Terminality: Browse Commands..."
+			],
+			[
+				"packege remo",
+				"Package Control: Remove Package"
+			],
+			[
+				"ter",
+				"Terminal: Open"
+			],
+			[
+				"pacage in",
+				"Package Control: Install Package"
+			],
+			[
+				"cmake",
+				"Build With: CMake Build"
+			],
+			[
+				"term",
+				"Terminus: Open Default Shell in Panel"
+			],
+			[
+				"pacage install",
+				"Package Control: Install Package"
+			],
+			[
+				"package insa",
+				"Package Control: Install Package"
+			],
+			[
+				"packa re",
+				"Package Control: Remove Package"
+			],
+			[
+				"te",
+				"Terminal: Open"
+			],
+			[
+				"Package Control: ",
+				"Package Control: Disable Package"
+			],
+			[
+				"pagege ",
+				"Package Control: Remove Package"
+			],
+			[
+				"pacgage insta",
+				"Package Control: Install Package"
+			],
+			[
+				"package  insta",
+				"Package Control: Install Package"
+			],
+			[
+				"pa",
+				"Package Control: Advanced Install Packages"
+			],
+			[
+				"pkage",
+				"Package Control: Install Package"
+			],
+			[
+				"terminal open",
+				"Terminus: Open Default Shell in Panel"
+			],
+			[
+				"side bar ",
+				"View: Toggle Side Bar"
+			],
+			[
+				"terminus open ",
+				"Terminus: Open Default Shell in Panel"
+			],
+			[
+				"packege install",
+				"Package Control: Install Package"
+			],
+			[
+				"package remove ",
+				"Package Control: Remove Package"
+			],
+			[
+				"termu",
+				"Preferences: Terminus Settings"
+			],
+			[
+				"Package Control: Install Package",
+				"Package Control: Install Package"
+			],
+			[
+				"Termina",
+				"Preferences: Terminus Command Palette"
+			],
+			[
+				"Terminus",
+				"Preferences: Terminus Settings"
+			],
+			[
+				"",
+				"Build: Cancel"
+			],
+			[
+				"Terminal",
+				"Preferences: Terminus Command Palette"
+			],
+			[
+				"packehe",
+				"Package Control: Add Channel"
+			],
+			[
+				"termin",
+				"Preferences: Terminus View Settings"
+			],
+			[
+				"add",
+				"Project: Add Folder"
+			],
+			[
+				"add ",
+				"Project: Add Folder"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 423.0,
+		"history":
+		[
+			"clear",
+			"k",
+			"l",
+			"clear",
+			"ls",
+			"cl",
+			"clear",
+			"clear\\",
+			"clear",
+			"os.exit()",
+			"import os",
+			"inport os",
+			"exit",
+			"quit",
+			"exit()",
+			"quit()",
+			"1 + 2",
+			"clear",
+			"import urllib.request,os,hashlib; h = 'f3c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1' + 'c1'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), 'wb').write(urllib.request.urlopen('http://sublime.wbond.net/' + pf.replace(' ', '%20')).read()); print('Please restart Sublime Text to finish installation')",
+			"#clear",
+			"/clear",
+			"clear"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": true,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/home/fly/Documents/SKY",
+		"/home/fly/Documents/SKY/Game",
+		"/home/fly/Documents/SKY/Game/src"
+	],
+	"file_history":
+	[
+		"/home/fly/Documents/SkyLands/Game/src/main.cpp",
+		"/home/fly/Documents/SkyLands/Engine/src/Mesh.cpp",
+		"/home/fly/Documents/SkyLands/Engine/include/Mesh.h",
+		"/home/fly/Documents/SkyLands/Engine/include/Model.h",
+		"/home/fly/Documents/SkyLands/Engine/src/Model.cpp",
+		"/home/fly/Documents/SkyLands/Game/Shaders/new.frag",
+		"/home/fly/Documents/SkyLands/Game/Shaders/new.vert",
+		"/home/fly/Documents/SkyLands/Engine/src/Camera.cpp",
+		"/home/fly/Documents/SkyLands/Engine/include/Camera.h",
+		"/home/fly/Documents/SkyLands/Engine/include/Shader.h",
+		"/home/fly/Documents/SkyLands/Engine/src/Shader.cpp",
+		"/home/fly/Documents/SkyLands/Engine/src/InputManager.cpp",
+		"/home/fly/Documents/SkyLands/Engine/include/InputManager.h",
+		"/home/fly/Documents/SkyLands/Engine/CMakeLists.txt",
+		"/home/fly/Documents/SkyLands/Game/CMakeLists.txt",
+		"/home/fly/Documents/SkyLands/Engine/src/Window.cpp",
+		"/home/fly/Documents/SkyLands/Engine/include/Window.h",
+		"/home/fly/Documents/SkyLands/Engine/src/DeltaTime.cpp",
+		"/home/fly/Documents/SkyLands/Engine/include/DeltaTime.h",
+		"/home/fly/Documents/SkyLands/CMakeLists.txt",
+		"/home/fly/Documents/SkyLands/Libs/glad/CMakeLists.txt",
+		"/home/fly/Documents/SKY/game/Shaders/new.vert",
+		"/home/fly/Documents/SKY/game/Shaders/light.frag",
+		"/home/fly/Documents/SKY/game/Shaders/new.frag",
+		"/home/fly/Documents/SKY/engine/src/rendering/Mesh.cpp",
+		"/home/fly/Documents/SKY/engine/include/rendering/Mesh.h",
+		"/home/fly/Documents/SKY/engine/include/rendering/Model.h",
+		"/home/fly/Documents/SKY/engine/src/rendering/Model.cpp",
+		"/home/fly/Documents/SKY/engine/include/DeltaTime.h",
+		"/home/fly/Documents/SKY/engine/src/DeltaTime.cpp",
+		"/home/fly/Documents/SKY/engine/src/InputManager.cpp",
+		"/home/fly/Documents/SKY/engine/include/InputManager.h",
+		"/home/fly/Documents/SKY/engine/src/Camera.cpp",
+		"/home/fly/Documents/SKY/engine/include/Camera.h",
+		"/home/fly/Documents/SKY/game/src/main.cpp",
+		"/home/fly/Documents/SKY/engine/src/rendering/Shader.cpp",
+		"/home/fly/Documents/SKY/engine/include/rendering/Vertex.h",
+		"/home/fly/Documents/SKY/game/Shaders/error.frag",
+		"/home/fly/Documents/SKY/game/CMakeLists.txt",
+		"/home/fly/Documents/SKY/game/Shaders/default.frag",
+		"/home/fly/Documents/SKY/engine/include/rendering/Texture.h",
+		"/home/fly/Documents/SKY/engine/src/rendering/Texture.cpp",
+		"/home/fly/Documents/SKY/game/Resources/test.cpp",
+		"/home/fly/Documents/SKY/engine/include/ImGuiSettings.h",
+		"/home/fly/Documents/SKY/engine/src/ImGuiSettings.cpp",
+		"/home/fly/Documents/SKY/engine/include/rendering/Shader.h",
+		"/home/fly/Documents/SKY/game/Shaders/light.vert",
+		"/home/fly/Documents/SKY/engine/include/rendering/VBO.h",
+		"/home/fly/Documents/SKY/engine/include/rendering/EBO.h",
+		"/home/fly/.config/sublime-text/Packages/GL Shader Validator/GLShaderValidator.sublime-settings",
+		"/home/fly/Documents/SKY/game/Shaders/default.vert",
+		"/home/fly/Documents/SKY/engine/include/Window.h",
+		"/home/fly/Documents/SKY/engine/src/Window.cpp",
+		"/home/fly/Documents/SKY/engine/CMakeLists.txt",
+		"/home/fly/Documents/SKY/game/Shaders/mTextures.frag",
+		"/home/fly/Documents/SKY/game/Shaders/phongM.glsl",
+		"/home/fly/Documents/SKY/game/Shaders/Phong.vert",
+		"/home/fly/Documents/SKY/game/Shaders/Phong.frag",
+		"/home/fly/Documents/SKY/game/Shaders/mTextures.vert",
+		"/home/fly/Documents/SKY/game/Shaders/Dif_Point_Spot/spot.frag",
+		"/home/fly/Documents/SKY/game/Shaders/Dif_Point_Spot/point.frag",
+		"/home/fly/Documents/SKY/game/Shaders/Dif_Point_Spot/DPS.vert",
+		"/home/fly/Documents/SKY/game/Shaders/Dif_Point_Spot/difuse.frag",
+		"/home/fly/Documents/SKY/CMakeLists.txt",
+		"/home/fly/.config/sublime-text/Packages/User/Sky.sublime-build",
+		"/home/flysteal/Desktop/SKY/libs/glm/glm/detail/func_geometric.inl",
+		"/home/flysteal/Desktop/SKY/engine/src/Camera.cpp",
+		"/home/flysteal/Desktop/SKY/engine/include/rendering/Model.h",
+		"/home/flysteal/Desktop/SKY/engine/src/rendering/Texture.cpp",
+		"/home/flysteal/Desktop/SKY/engine/include/rendering/Texture.h",
+		"/home/flysteal/Desktop/SKY/engine/include/rendering/Mesh.h",
+		"/home/flysteal/Desktop/SKY/game/src/main.cpp",
+		"/home/flysteal/Desktop/SKY/engine/CMakeLists.txt",
+		"/home/flysteal/Desktop/SKY/game/Shaders/new.frag",
+		"/home/flysteal/Desktop/SKY/game/Shaders/new.vert",
+		"/home/flysteal/Desktop/SKY/game/Shaders/light.vert",
+		"/home/flysteal/Desktop/SKY/engine/src/rendering/Mesh.cpp",
+		"/home/flysteal/Desktop/SKY/game/CMakeLists.txt",
+		"/home/flysteal/Desktop/SKY/CMakeLists.txt",
+		"/home/flysteal/Desktop/SKY/libs/assimp-master/CMakeLists.txt",
+		"/home/flysteal/Desktop/SKY/game/Resources/test.cpp",
+		"/home/flysteal/Desktop/SKY/README.md",
+		"/home/flysteal/Desktop/SKY/game/Shaders/error.frag",
+		"/home/flysteal/Desktop/SKY/game/Shaders/default.vert",
+		"/home/flysteal/Desktop/SKY/game/Shaders/default.frag",
+		"/home/flysteal/Desktop/SKY/game/Shaders/light.frag",
+		"/home/flysteal/Documents/noise.html",
+		"/home/flysteal/Desktop/SKY/engine/include/Camera.h",
+		"/home/flysteal/Desktop/SKY/game/Shaders/Dif_Point_Spot/spot.frag",
+		"/home/flysteal/Desktop/SKY/game/Shaders/Dif_Point_Spot/DPS.vert",
+		"/home/flysteal/Desktop/SKY/game/Shaders/Dif_Point_Spot/point.frag",
+		"/home/flysteal/Desktop/SKY/game/Shaders/Dif_Point_Spot/difuse.frag",
+		"/home/flysteal/Desktop/SKY/game/Shaders/Phong.frag",
+		"/home/flysteal/Desktop/SKY/game/Shaders/difuse.frag",
+		"/home/flysteal/Desktop/SKY/game/Shaders/DPS.vert",
+		"/home/flysteal/Desktop/SKY/game/Shaders/point.frag",
+		"/home/flysteal/Desktop/SKY/game/Shaders/spot.frag",
+		"/home/flysteal/Desktop/SKY/game/Resources/brick_specular.png",
+		"/home/flysteal/Desktop/SKY/engine/include/rendering/Shader.h",
+		"/home/flysteal/Desktop/SKY/engine/src/rendering/Shader.cpp",
+		"/home/flysteal/New Folder/minecraft-launcher.sh",
+		"/home/flysteal/Desktop/minecraft-launcher/minecraft-launcher.sh",
+		"/home/flysteal/Desktop/minecraft-launcher/.SRCINFO",
+		"/home/flysteal/Desktop/SKY/game/Shaders/phongM.glsl",
+		"/home/flysteal/Desktop/mc/minecraft-launcher/minecraft-launcher.sh",
+		"/home/flysteal/Desktop/minecraft-launcher/PKGBUILD",
+		"/home/flysteal/Desktop/SKY/game/Shaders/Phong.vert",
+		"/home/flysteal/Desktop/SKY/game/Shaders/mTextures.frag",
+		"/home/flysteal/Desktop/SKY/engine/src/InputManager.cpp",
+		"/home/flysteal/Desktop/SKY/engine/src/Window.cpp",
+		"/home/flysteal/Desktop/SKY/engine/include/Window.h",
+		"/home/flysteal/Desktop/SKY/game/Shaders/glm.vert",
+		"/home/flysteal/Desktop/SKY/game/Shaders/glm.frag",
+		"/home/flysteal/Desktop/SKY/engine/include/InputManager.h",
+		"/home/flysteal/Desktop/SKY/engine/include/ImGuiSettings.h",
+		"/home/flysteal/Desktop/SKY/engine/src/ImGuiSettings.cpp",
+		"/SkyOld/SkyLands/engine/src/Camera.cpp",
+		"/home/flysteal/Documents/src/Camera.cpp",
+		"/home/flysteal/Documents/include/Camera.h",
+		"/home/flysteal/Desktop/SKY/engine/src/I_Window.cpp",
+		"/SkyOld/SkyLands/engine/include/Camera.h",
+		"/home/flysteal/Desktop/SKY/engine/include/DeltaTime.h",
+		"/home/flysteal/Desktop/SKY/engine/src/DeltaTime.cpp",
+		"/home/flysteal/Desktop/SKY/engine/include/rendering/EBO.h",
+		"/home/flysteal/Desktop/SKY/engine/src/rendering/EBO.cpp",
+		"/home/flysteal/Desktop/SKY/LICENSE",
+		"/home/flysteal/Desktop/SKY/LICANCE",
+		"/home/flysteal/Desktop/SKY/.gitattributes"
+	],
+	"find":
+	{
+		"height": 28.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"SKY",
+			"fly",
+			"home",
+			"ccamMatrix",
+			"\"//",
+			"home",
+			"800",
+			"test",
+			"Model_h",
+			"Mesh_h",
+			"shader_h",
+			"deltatime_h",
+			"tst",
+			"window_h",
+			"libs"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"Libs"
+		],
+		"reverse": false,
+		"scrollbar_highlights": true,
+		"show_context": true,
+		"use_buffer2": true,
+		"use_gitignore": true,
+		"whole_word": false,
+		"wrap": false
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "Game/src/main.cpp",
+					"selected": true,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1927,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1061,
+								1061
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 379.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"stack_multiselect": false,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 28.0
+	},
+	"input":
+	{
+		"height": 207.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 155.0,
+		"history":
+		[
+		]
+	},
+	"output.find_results":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"pinned_build_system": "Packages/User/Sky.sublime-build",
+	"project": "Sky.sublime-project",
+	"replace":
+	{
+		"height": 52.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"me",
+				"Engine/include/Mesh.h"
+			],
+			[
+				"shader",
+				"Engine/include/Shader.h"
+			],
+			[
+				"model",
+				"Engine/include/Model.h"
+			],
+			[
+				"modle",
+				"Engine/src/Model.cpp"
+			],
+			[
+				"cam",
+				"Engine/include/Camera.h"
+			],
+			[
+				"del",
+				"engine/include/DeltaTime.h"
+			],
+			[
+				"deltat",
+				"engine/src/DeltaTime.cpp"
+			],
+			[
+				"In",
+				"engine/src/InputManager.cpp"
+			],
+			[
+				"inputM",
+				"engine/include/InputManager.h"
+			],
+			[
+				"mes",
+				"engine/src/rendering/Mesh.cpp"
+			],
+			[
+				"mesh",
+				"engine/include/rendering/Mesh.h"
+			],
+			[
+				"te",
+				"engine/include/rendering/Texture.h"
+			],
+			[
+				"tex",
+				"engine/src/rendering/Texture.cpp"
+			],
+			[
+				"im",
+				"engine/src/ImGuiSettings.cpp"
+			],
+			[
+				"imgui",
+				"engine/include/ImGuiSettings.h"
+			],
+			[
+				"shade",
+				"engine/src/rendering/Shader.cpp"
+			],
+			[
+				"imgu",
+				"engine/include/ImGuiSettings.h"
+			],
+			[
+				"shad",
+				"engine/src/rendering/Shader.cpp"
+			],
+			[
+				"came",
+				"engine/src/Camera.cpp"
+			],
+			[
+				"main",
+				"game/src/main.cpp"
+			],
+			[
+				"wid",
+				"engine/src/Window.cpp"
+			],
+			[
+				"wind",
+				"engine/include/Window.h"
+			],
+			[
+				"windo",
+				"engine/src/Window.cpp"
+			],
+			[
+				"cmake",
+				"game/CMakeLists.txt"
+			],
+			[
+				"cmaek",
+				"CMakeLists.txt"
+			],
+			[
+				"windw",
+				"engine/src/Window.cpp"
+			],
+			[
+				"text",
+				"engine/src/rendering/Texture.cpp"
+			],
+			[
+				"texture",
+				"engine/include/rendering/Texture.h"
+			],
+			[
+				"sha",
+				"engine/include/rendering/Shader.h"
+			],
+			[
+				"sh",
+				"engine/include/rendering/Shader.h"
+			],
+			[
+				"in",
+				"engine/src/InputManager.cpp"
+			],
+			[
+				"",
+				"game/Shaders/glm.frag"
+			],
+			[
+				"SHA",
+				"engine/include/rendering/Shader.h"
+			],
+			[
+				"SHADER",
+				"engine/src/rendering/Shader.cpp"
+			],
+			[
+				"window",
+				"engine/src/Window.cpp"
+			],
+			[
+				"widnw",
+				"engine/src/Window.cpp"
+			],
+			[
+				"widnow",
+				"engine/include/Window.h"
+			],
+			[
+				"iw",
+				"engine/src/I_Window.cpp"
+			],
+			[
+				"e widnw",
+				"engine/src/I_Window.cpp"
+			],
+			[
+				"w",
+				"engine/include/Window.h"
+			],
+			[
+				"c",
+				"engine/include/Camera.h"
+			],
+			[
+				"win",
+				"engine/src/Window.cpp"
+			],
+			[
+				"windwo",
+				"engine/include/Window.h"
+			],
+			[
+				"VBO",
+				"engine/src/rendering/VBO.cpp"
+			],
+			[
+				"VBO.",
+				"engine/include/rendering/VBO.h"
+			],
+			[
+				"VAO",
+				"engine/src/rendering/VAO.cpp"
+			],
+			[
+				"e",
+				"engine/src/rendering/EBO.cpp"
+			],
+			[
+				"vbo.c",
+				"engine/src/rendering/VBO.cpp"
+			],
+			[
+				"V",
+				"engine/include/rendering/VBO.h"
+			],
+			[
+				"INPUT",
+				"engine/include/InputManager.h"
+			],
+			[
+				"INPUT ",
+				"engine/src/InputManager.cpp"
+			],
+			[
+				"CAMER",
+				"engine/src/Camera.cpp"
+			],
+			[
+				"camera",
+				"engine/include/Camera.h"
+			],
+			[
+				"input",
+				"engine/include/InputManager.h"
+			],
+			[
+				"inpu",
+				"engine/src/InputManager.cpp"
+			],
+			[
+				"input ma",
+				"engine/include/InputManager.h"
+			],
+			[
+				"inp",
+				"engine/src/InputManager.cpp"
+			],
+			[
+				"mai",
+				"engine/src/main.cpp"
+			],
+			[
+				"img",
+				"engine/include/ImGuiSettings.h"
+			],
+			[
+				"camer",
+				"engine/include/Camera.h"
+			],
+			[
+				"CAMERA.H",
+				"engine/include/Camera.h"
+			],
+			[
+				"texture ",
+				"engine/include/rendering/Texture.h"
+			],
+			[
+				"IN",
+				"engine/src/InputManager.cpp"
+			],
+			[
+				"ca",
+				"engine/include/Camera.h"
+			],
+			[
+				"w en",
+				"engine/src/E_Window.cpp"
+			],
+			[
+				"eng",
+				"engine/src/Engine.cpp"
+			],
+			[
+				"en",
+				"engine/include/Engine.h"
+			],
+			[
+				"ewi",
+				"engine/src/E_Window.cpp"
+			],
+			[
+				"engine",
+				"engine/src/Engine.cpp"
+			],
+			[
+				"ma",
+				"engine/src/main.cpp"
+			],
+			[
+				"e wind",
+				"engine/src/E_Window.cpp"
+			],
+			[
+				"ebo",
+				"engine/src/rendering/EBO.cpp"
+			],
+			[
+				"vao.",
+				"engine/src/rendering/VAO.cpp"
+			],
+			[
+				"vao",
+				"engine/include/rendering/VAO.h"
+			],
+			[
+				"vbo",
+				"engine/src/rendering/VBO.cpp"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 235.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
