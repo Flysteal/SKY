@@ -1,8 +1,17 @@
-# cube.mtl
-newmtl brick_material
-Ka 1.000 1.000 1.000        # Ambient color
-Kd 1.000 1.000 1.000        # Diffuse color
-Ks 0.000 0.000 0.000        # Specular color
-Ns 10.0                    # Shininess
-map_Kd brick.jpg
- # Diffuse texture map
+newmtl Red
+Kd 1.0 0.0 0.0
+
+newmtl Green
+Kd 0.0 1.0 0.0
+
+newmtl Blue
+Kd 0.0 0.0 1.0
+
+newmtl Yellow
+Kd 1.0 1.0 0.0
+
+newmtl Magenta
+Kd 1.0 0.0 1.0
+
+newmtl Cyan
+Kd 0.0 1.0 1.0

@@ -15,8 +15,21 @@ void Model::Draw(Shader& shader) {
 
 void Model::loadModel(const std::string& path) {
     Assimp::Importer importer;
-    const aiScene* scene = importer.ReadFile(path,
-        aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
+
+const aiScene* scene = importer.ReadFile(path,
+    aiProcess_Triangulate |
+    aiProcess_FlipUVs |
+    aiProcess_CalcTangentSpace |
+    aiProcess_GenNormals);
+
+if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
+    std::cerr << "Assimp Error: " << importer.GetErrorString() << std::endl;
+    return;
+}
+
+// Now you can safely check vertex colors in meshes during processing.
+
+
 
     if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
         std::cerr << "Assimp Error: " << importer.GetErrorString() << std::endl;
@@ -47,9 +60,32 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene) {
         vertex.Position = glm::vec3(mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z);
         vertex.Normal   = glm::vec3(mesh->mNormals[i].x,  mesh->mNormals[i].y,  mesh->mNormals[i].z);
         vertex.TexCoords = mesh->mTextureCoords[0] ?
-            glm::vec2(mesh->mTextureCoords[0][i].x, mesh->mTextureCoords[0][i].y) : glm::vec2(0.0f);
+            glm::vec2(mesh->mTextureCoords[0][i].x, mesh->mTextureCoords[0][i].y) :
+            glm::vec2(0.0f);
+
+        if (mesh->HasVertexColors(0)) {
+            vertex.Color = glm::vec3(
+                mesh->mColors[0][i].r,
+                mesh->mColors[0][i].g,
+                mesh->mColors[0][i].b
+            );
+        } else {
+            // No vertex color – check material diffuse color
+            glm::vec3 fallbackColor(1.0f, 0.0f, 0.0f); // default to red
+            if (mesh->mMaterialIndex >= 0) {
+                aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
+                aiColor3D color(0.f, 0.f, 0.f);
+                if (material->Get(AI_MATKEY_COLOR_DIFFUSE, color) == AI_SUCCESS) {
+                    fallbackColor = glm::vec3(color.r, color.g, color.b);
+                }
+            }
+            vertex.Color = fallbackColor;
+        }
+
+
         vertices.push_back(vertex);
     }
+
 
     for (unsigned int i = 0; i < mesh->mNumFaces; ++i) {
         aiFace face = mesh->mFaces[i];
@@ -62,6 +98,7 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene) {
         auto diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
         textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
     }
+
 
     return Mesh(vertices, indices, textures);
 }

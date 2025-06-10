@@ -41,11 +41,14 @@ int main()
     Model cubeObj("/home/fly/Documents/SKY/Game/RSC/cube.obj");
     cubeObj.Translate(glm::vec3(3.0f, 0.0f, 0.0f));
 
-    Model TeaPotObj("/home/fly/Documents/SKY/Game/RSC/DeathsIsland/DeathsIsland.obj");
-    TeaPotObj.Translate(glm::vec3(1.0f, 0.0f, 3.0f));
+    // Model TeaPotObj("/home/fly/Documents/SKY/Game/RSC/DeathsIsland/DeathsIsland.obj");
+    // TeaPotObj.Translate(glm::vec3(1.0f, 0.0f, 3.0f));
 
-    Model BallObj("/home/fly/Documents/SKY/Game/RSC/ball.obj");
-    BallObj.Translate(glm::vec3(-1.0f, 0.0f, 2.0f));
+    // Model BallObj("/home/fly/Documents/SKY/Game/RSC/ball.obj");
+    // BallObj.Translate(glm::vec3(-1.0f, 0.0f, 2.0f));
+
+    // Model ColorCube("/home/fly/Documents/SKY/Game/RSC/colorCube.obj");
+    // ColorCube.Translate(glm::vec3(0.0, 0.0, 0.0));
 
     glEnable(GL_DEPTH_TEST);
     while (!window.ShouldClose())
@@ -62,13 +65,19 @@ int main()
         shader.setMat4("camMatrix", camera.GetCamMatrix());
 
         shader.setMat4("model", cubeObj.Matrix);
+        shader.setBool("useTexture", false); // or false to use vertex color
         cubeObj.Draw(shader);
 
-        shader.setMat4("model", TeaPotObj.Matrix);
-        TeaPotObj.Draw(shader);
+        // shader.setMat4("model", TeaPotObj.Matrix);
+        // shader.setBool("useTexture", false); // or false to use vertex color
+        // TeaPotObj.Draw(shader);
 
-        shader.setMat4("model", BallObj.Matrix);
-        BallObj.Draw(shader);
+        // shader.setMat4("model", ColorCube.Matrix);
+        // shader.setBool("useTexture", false); // or false to use vertex color
+        // ColorCube.Draw(shader);
+
+        // shader.setMat4("model", BallObj.Matrix);
+        // BallObj.Draw(shader);
 
 
         window.SwapBuffers();
