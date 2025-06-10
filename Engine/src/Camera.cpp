@@ -61,6 +61,8 @@ void Camera::KeyInput(Shader& shader)
     if (IsKeyPressed(GLFW_KEY_D)) moveDir += flatRight;
     if (IsKeyPressed(GLFW_KEY_SPACE)) moveDir += normalizedUp;
     if (IsKeyPressed(GLFW_KEY_LEFT_SHIFT)) moveDir -= normalizedUp;
+    if (IsKeyPressedToggle(GLFW_KEY_Z)) Speed = 7.0 * deltaTime;
+
 
     if (glm::length(moveDir) > 0.0f) Position += glm::normalize(moveDir) * Speed;
 

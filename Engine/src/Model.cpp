@@ -162,5 +162,6 @@ unsigned int Model::TextureFromFile(const char* path, const std::string& directo
 
 void Model::Translate(glm::vec3 vec)
 {
-    Matrix = glm::translate(Matrix, vec);
+ glm::mat4 ooo = glm::mat4(1.0f);
+    Matrix = glm::translate(ooo, vec);
 }
