@@ -1,23 +1,33 @@
-#ifndef MESH_H
-#define MESH_H
+#pragma once
 
+#include <glad/gl.h>
+#include <glm/glm.hpp>
+#include <string>
 #include <vector>
 #include "Shader.h"
-#include "glm/vec3.hpp"
+
+struct Vertex {
+    glm::vec3 Position;
+    glm::vec3 Normal;
+    glm::vec2 TexCoords;
+};
+
+struct Texture {
+    unsigned int id;
+    std::string type;
+    std::string path;
+};
 
 class Mesh {
 public:
-    Mesh(const std::vector<float>& vertices);
+    std::vector<Vertex> vertices;
+    std::vector<unsigned int> indices;
+    std::vector<Texture> textures;
+
+    Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures);
     void Draw(Shader& shader);
-    ~Mesh();
-
-    glm::vec3 Position = glm::vec3(1.0f);
-    glm::vec3 Scale = glm::vec3(1.0f);
-
 
 private:
-    unsigned int vao, vbo;
-    size_t vertexCount;
+    unsigned int VAO, VBO, EBO;
+    void setupMesh();
 };
-
-#endif // MESH_H

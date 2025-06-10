@@ -1,11 +1,13 @@
 #include <iostream>
 
+// #include "Texture.h"//glad
+#include "Mesh.h"
+#include "Model.h"
 #include "Window.h"
 #include "DeltaTime.h"
 #include "Shader.h"
-#include "Mesh.h"
-#include "Model.h"
 #include "Camera.h"
+
 
 #include "glad/gl.h"
 #include "GLFW/glfw3.h"
@@ -35,23 +37,15 @@ int main()
     Gptr_camera = &camera;
     glfwSetWindowSizeCallback(window.GetWindow(), window_size_callback);
 
-    std::vector<float> model1 = ModelLoader::LoadOBJ("../../SKY/Game/RSC/cube.obj");
-    std::vector<float> model2 = ModelLoader::LoadOBJ("../../SKY/Game/RSC/ball.obj");
-    std::vector<float> model3 = ModelLoader::LoadOBJ("../../SKY/Game/RSC/TeaPot.obj");
 
+    Model cubeObj("/home/fly/Documents/SKY/Game/RSC/cube.obj");
+    cubeObj.Translate(glm::vec3(3.0f, 0.0f, 0.0f));
 
-    Mesh mesh1(model1);  
-    mesh1.Position = glm::vec3(5.0, -1.0, 0.0);
-    mesh1.Scale = glm::vec3(1.2);
+    Model TeaPotObj("/home/fly/Documents/SKY/Game/RSC/DeathsIsland/DeathsIsland.obj");
+    TeaPotObj.Translate(glm::vec3(1.0f, 0.0f, 3.0f));
 
-    Mesh mesh2(model2);  
-    mesh2.Position = glm::vec3(2.5, 0.0, 0.0);
-    mesh2.Scale = glm::vec3(0.7);
-
-    Mesh mesh3(model3);  
-    mesh3.Position = glm::vec3(2.0, -1.0, 2.5);
-    mesh3.Scale = glm::vec3(0.5);
-
+    Model BallObj("/home/fly/Documents/SKY/Game/RSC/ball.obj");
+    BallObj.Translate(glm::vec3(-1.0f, 0.0f, 2.0f));
 
     glEnable(GL_DEPTH_TEST);
     while (!window.ShouldClose())
@@ -65,12 +59,18 @@ int main()
         camera.KeyInput(shader);
 
         shader.Use();
-        shader.setMat4("camMatrix", camera.camMatrix);
-        mesh1.Draw(shader);
-        mesh2.Draw(shader);
-        mesh3.Draw(shader);
+        shader.setMat4("camMatrix", camera.GetCamMatrix());
 
-        	
+        shader.setMat4("model", cubeObj.Matrix);
+        cubeObj.Draw(shader);
+
+        shader.setMat4("model", TeaPotObj.Matrix);
+        TeaPotObj.Draw(shader);
+
+        shader.setMat4("model", BallObj.Matrix);
+        BallObj.Draw(shader);
+
+
         window.SwapBuffers();
         window.PollEvents();
     }

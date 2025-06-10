@@ -1,94 +1,129 @@
 #include "Model.h"
-#include <fstream>
-#include <sstream>
+#include <assimp/Importer.hpp>
+#include <assimp/postprocess.h>
+#include <stb_image.h>
 #include <iostream>
+#include <glm/gtc/matrix_transform.hpp>
+Model::Model(const std::string& path) {
+    loadModel(path);
+}
 
-std::vector<float> ModelLoader::LoadOBJ(const std::string& path) {
-    std::ifstream file(path);
-    if (!file.is_open()) {
-        std::cerr << "Failed to open OBJ file: " << path << "\n";
-        return {};
+void Model::Draw(Shader& shader) {
+    for (auto& mesh : meshes)
+        mesh.Draw(shader);
+}
+
+void Model::loadModel(const std::string& path) {
+    Assimp::Importer importer;
+    const aiScene* scene = importer.ReadFile(path,
+        aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
+
+    if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
+        std::cerr << "Assimp Error: " << importer.GetErrorString() << std::endl;
+        return;
     }
 
-    std::vector<float> positions;
-    std::vector<float> texcoords;
-    std::vector<float> normals;
-    std::vector<float> result;
+    directory = path.substr(0, path.find_last_of('/'));
+    processNode(scene->mRootNode, scene);
+}
 
-    std::string line;
-    while (std::getline(file, line)) {
-        std::istringstream ss(line);
-        std::string prefix;
-        ss >> prefix;
-
-        if (prefix == "v") {
-            float x, y, z;
-            ss >> x >> y >> z;
-            positions.insert(positions.end(), { x, y, z });
-        } else if (prefix == "vt") {
-            float u, v;
-            ss >> u >> v;
-            texcoords.insert(texcoords.end(), { u, v });
-        } else if (prefix == "vn") {
-            float nx, ny, nz;
-            ss >> nx >> ny >> nz;
-            normals.insert(normals.end(), { nx, ny, nz });
-        }else if (prefix == "f") {
-    std::vector<std::string> verticesInFace;
-    std::string vertexStr;
-    while (ss >> vertexStr) {
-        verticesInFace.push_back(vertexStr);
+void Model::processNode(aiNode* node, const aiScene* scene) {
+    for (unsigned int i = 0; i < node->mNumMeshes; ++i) {
+        aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
+        meshes.push_back(processMesh(mesh, scene));
     }
-
-    if (verticesInFace.size() < 3) continue; // invalid face
-
-    // Parse all vertices indices in this face
-    struct VertexIndices {
-        int vi, ti, ni;
-    };
-    std::vector<VertexIndices> faceIndices;
-
-    for (const auto& vStr : verticesInFace) {
-        int vi = 0, ti = 0, ni = 0;
-        sscanf(vStr.c_str(), "%d/%d/%d", &vi, &ti, &ni);
-        faceIndices.push_back({vi, ti, ni});
-    }
-
-    // Triangulate face (triangle fan method)
-    for (size_t i = 1; i + 1 < faceIndices.size(); ++i) {
-        VertexIndices indices[3] = { faceIndices[0], faceIndices[i], faceIndices[i + 1] };
-        for (int k = 0; k < 3; ++k) {
-            int vi = (indices[k].vi - 1) * 3;
-            int ti = (indices[k].ti - 1) * 2;
-            int ni = (indices[k].ni - 1) * 3;
-
-            if (vi < 0 || vi + 2 >= (int)positions.size()) continue;
-            result.push_back(positions[vi + 0]);
-            result.push_back(positions[vi + 1]);
-            result.push_back(positions[vi + 2]);
-
-            if (ti >= 0 && ti + 1 < (int)texcoords.size()) {
-                result.push_back(texcoords[ti + 0]);
-                result.push_back(texcoords[ti + 1]);
-            } else {
-                result.push_back(0.0f);
-                result.push_back(0.0f);
-            }
-
-            if (ni >= 0 && ni + 2 < (int)normals.size()) {
-                result.push_back(normals[ni + 0]);
-                result.push_back(normals[ni + 1]);
-                result.push_back(normals[ni + 2]);
-            } else {
-                result.push_back(0.0f);
-                result.push_back(0.0f);
-                result.push_back(0.0f);
-            }
-        }
+    for (unsigned int i = 0; i < node->mNumChildren; ++i) {
+        processNode(node->mChildren[i], scene);
     }
 }
 
+Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene) {
+    std::vector<Vertex> vertices;
+    std::vector<unsigned int> indices;
+    std::vector<Texture> textures;
+
+    for (unsigned int i = 0; i < mesh->mNumVertices; ++i) {
+        Vertex vertex;
+        vertex.Position = glm::vec3(mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z);
+        vertex.Normal   = glm::vec3(mesh->mNormals[i].x,  mesh->mNormals[i].y,  mesh->mNormals[i].z);
+        vertex.TexCoords = mesh->mTextureCoords[0] ?
+            glm::vec2(mesh->mTextureCoords[0][i].x, mesh->mTextureCoords[0][i].y) : glm::vec2(0.0f);
+        vertices.push_back(vertex);
     }
 
-    return result;
+    for (unsigned int i = 0; i < mesh->mNumFaces; ++i) {
+        aiFace face = mesh->mFaces[i];
+        for (unsigned int j = 0; j < face.mNumIndices; ++j)
+            indices.push_back(face.mIndices[j]);
+    }
+
+    if (mesh->mMaterialIndex >= 0) {
+        aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
+        auto diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
+        textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
+    }
+
+    return Mesh(vertices, indices, textures);
+}
+
+std::vector<Texture> Model::loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName) {
+    std::vector<Texture> textures;
+
+    for (unsigned int i = 0; i < mat->GetTextureCount(type); ++i) {
+        aiString str;
+        mat->GetTexture(type, i, &str);
+        std::string texPath = str.C_Str();
+
+        bool skip = false;
+        for (auto& t : textures_loaded) {
+            if (t.path == texPath) {
+                textures.push_back(t);
+                skip = true;
+                break;
+            }
+        }
+
+        if (!skip) {
+            Texture texture;
+            texture.id = TextureFromFile(texPath.c_str(), directory);
+            texture.type = typeName;
+            texture.path = texPath;
+            textures.push_back(texture);
+            textures_loaded.push_back(texture);
+        }
+    }
+
+    return textures;
+}
+
+unsigned int Model::TextureFromFile(const char* path, const std::string& directory) {
+    std::string filename = directory + "/" + std::string(path);
+    unsigned int textureID;
+    glGenTextures(1, &textureID);
+
+    int width, height, nrComponents;
+    unsigned char* data = stbi_load(filename.c_str(), &width, &height, &nrComponents, 0);
+    if (data) {
+        GLenum format = (nrComponents == 1) ? GL_RED :
+                        (nrComponents == 3) ? GL_RGB : GL_RGBA;
+
+        glBindTexture(GL_TEXTURE_2D, textureID);
+        glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
+        glGenerateMipmap(GL_TEXTURE_2D);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); 
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT); 
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR); 
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        stbi_image_free(data);
+    } else {
+        std::cerr << "Texture failed to load: " << filename << "\n";
+        stbi_image_free(data);
+    }
+
+    return textureID;
+}
+
+void Model::Translate(glm::vec3 vec)
+{
+    Matrix = glm::translate(Matrix, vec);
 }

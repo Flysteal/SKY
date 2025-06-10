@@ -1,12 +1,28 @@
-#ifndef MODEL_H
-#define MODEL_H
+#pragma once
 
-#include <vector>
+#include <glad/gl.h>
+#include <glm/glm.hpp>
+#include <assimp/scene.h>
 #include <string>
-class ModelLoader {
-public:
-    // Loads model into a flat float array: pos (3) + texcoord (2) + normal (3)
-    static std::vector<float> LoadOBJ(const std::string& path);
-};
+#include <vector>
+#include "Mesh.h"
+#include "Shader.h"
 
-#endif // MODEL_H
+class Model {
+public:
+    Model(const std::string& path);
+    void Draw(Shader& shader);
+    glm::mat4 Matrix = glm::mat4(1.0f);
+    void Translate(glm::vec3 vec);
+
+private:
+    std::vector<Mesh> meshes;
+    std::string directory;
+    std::vector<Texture> textures_loaded;
+
+    void loadModel(const std::string& path);
+    void processNode(aiNode* node, const aiScene* scene);
+    Mesh processMesh(aiMesh* mesh, const aiScene* scene);
+    std::vector<Texture> loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName);
+    unsigned int TextureFromFile(const char* path, const std::string& directory);
+};

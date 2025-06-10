@@ -1,57 +1,54 @@
 #include "Mesh.h"
 #include <glad/gl.h>
-#include <iostream>
 
-#include "glm/glm.hpp"
-#include "glm/matrix.hpp"
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
+Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures)
+    : vertices(vertices), indices(indices), textures(textures) {
+    setupMesh();
+}
 
-Mesh::Mesh(const std::vector<float>& vertices)
-{
-    vertexCount = vertices.size() / 8; // 8 floats per vertex: pos(3), tex(2), normal(3)
+void Mesh::setupMesh() {
+    glGenVertexArrays(1, &VAO);
+    glGenBuffers(1, &VBO);
+    glGenBuffers(1, &EBO);
 
-    glGenVertexArrays(1, &vao);
-    glGenBuffers(1, &vbo);
+    glBindVertexArray(VAO);
 
-    glBindVertexArray(vao);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
 
-    glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), vertices.data(), GL_STATIC_DRAW);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
 
-    // Position attribute (location 0)
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
+    // Vertex Positions
     glEnableVertexAttribArray(0);
-
-    // TexCoord attribute (location 1)
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
+    // Vertex Normals
     glEnableVertexAttribArray(1);
-
-    // Normal attribute (location 2)
-    glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(5 * sizeof(float)));
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Normal));
+    // Vertex Texture Coords
     glEnableVertexAttribArray(2);
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, TexCoords));
 
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 }
 
+void Mesh::Draw(Shader& shader) {
+    unsigned int diffuseNr = 1;
+    for (unsigned int i = 0; i < textures.size(); ++i) {
+        glActiveTexture(GL_TEXTURE0 + i);
+        std::string number;
+        std::string name = textures[i].type;
+        number = std::to_string(diffuseNr++); // only diffuse for now
 
-Mesh::~Mesh()
-{
-    glDeleteVertexArrays(1, &vao);
-    glDeleteBuffers(1, &vbo);
+        shader.setInt((name + number).c_str(), i);
+        glBindTexture(GL_TEXTURE_2D, textures[i].id);
+    }
+
+    glBindVertexArray(VAO);
+    glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
+    glBindVertexArray(0);
+
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, 0);
 }
-
-void Mesh::Draw(Shader& shader)
-{
-    shader.Use();
-
-    glm::mat4 model = glm::mat4(1.0f);
-    model = glm::translate(model, Position);
-    model = glm::scale(model, Scale);
-    shader.setMat4("model", model);
-
-    glBindVertexArray(vao);
-    glDrawArrays(GL_TRIANGLES, 0, vertexCount);
-
-}
+    
