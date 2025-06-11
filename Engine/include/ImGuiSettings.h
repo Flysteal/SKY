@@ -5,12 +5,8 @@ struct GLFWwindow;
 #include "glm/glm.hpp"
 
 
-static float cords[12] ={
-  0.0f, 1.0f, 1.0f,
-  1.0f, 0.0f, 1.0f,
-  1.0f, 1.0f, 0.0f,
-  1.0f, 0.0f, 1.0f,
-};
+extern float cords[];
+
 class ImGuiSettings {
 public:
     ImGuiSettings(GLFWwindow* window);

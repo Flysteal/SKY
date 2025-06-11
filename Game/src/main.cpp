@@ -39,12 +39,7 @@ int main()
     Gptr_camera = &camera;
     glfwSetWindowSizeCallback(window.GetWindow(), window_size_callback);
 
-float cords[12]={
-  0.0f, 1.0f, 1.0f,
-  1.0f, 0.0f, 1.0f,
-  1.0f, 1.0f, 0.0f,
-  1.0f, 0.0f, 1.0f
-};
+
 
     Model cubeObj("/home/fly/Documents/SKY/Game/RSC/cube.obj");
     cubeObj.Translate(glm::vec3(cords[0], cords[1], cords[2]));

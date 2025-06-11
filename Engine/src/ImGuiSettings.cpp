@@ -11,6 +11,12 @@
 
 bool vsync = true;
 
+float cords[]={
+  12.0f, 8.0f, 0.0f,
+  1.0f,  5.0f, 14.0f,
+  12.0f, 8.0f, 15.0f,
+  0.0f,  0.0f, 0.0f
+};
 
 
 ImGuiSettings::ImGuiSettings(GLFWwindow* window)
@@ -49,10 +55,10 @@ ImGui::NewFrame();
 
    ImGui::End();
     ImGui::Begin("Coordinates");
-    ImGui::InputFloat3("float1", &cords[3]);
-    ImGui::InputFloat3("float2", &cords[6]);
-    ImGui::InputFloat3("float3", &cords[9]);
-    ImGui::InputFloat3("float4", &cords[12]);
+    ImGui::InputFloat3("float1", &cords[0]);
+    ImGui::InputFloat3("float2", &cords[3]);
+    ImGui::InputFloat3("float3", &cords[6]);
+    ImGui::InputFloat3("float4", &cords[9]);
 
     ImGui::End();
 

@@ -7,7 +7,6 @@
 struct GLFWwindow;
 class Shader;
 
-extern glm::vec3 Position  = glm::vec3(0.0f, 0.2f, 2.0f) ;
 
 class Camera : private InputManager {
 public:
@@ -24,7 +23,7 @@ glm::mat4 GetCamMatrix() const { return camMatrix; }
 
 
 
-    // glm::vec3 Position = glm::vec3(0.0f, 0.2f, 2.0f);
+    glm::vec3 Position = glm::vec3(0.0f, 0.2f, 2.0f);
     glm::vec3 Orientation = glm::vec3(0.0f, 0.0f, -1.0f);
     glm::mat4 camMatrix;
 private:
