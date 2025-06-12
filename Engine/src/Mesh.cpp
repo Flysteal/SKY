@@ -1,10 +1,11 @@
     #include "Mesh.h"
     #include <glad/gl.h>
 
-    Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures)
-        : vertices(vertices), indices(indices), textures(textures) {
-        setupMesh();
-    }
+Mesh::Mesh(std::vector<Vertex> vertices,    std::vector<unsigned int> indices, std::vector<Texture> textures, Material material)
+    : vertices(vertices), indices(indices), textures(textures), material(material)
+{
+    setupMesh();
+}
 
     void Mesh::setupMesh() {
         glGenVertexArrays(1, &VAO);
@@ -38,6 +39,25 @@
 
     void Mesh::Draw(Shader& shader) {
         unsigned int diffuseNr = 1;
+
+        shader.setVec3("material.ambient", material.ambient);
+        shader.setVec3("material.diffuse", material.diffuse);
+        shader.setVec3("material.specular", material.specular);
+        shader.setFloat("material.shininess", material.shininess);
+        shader.setVec3("dirLight.direction",  glm::vec3(-0.2f, -1.0f, -0.3f));
+shader.setVec3("dirLight.ambient",    glm::vec3(0.1f));
+shader.setVec3("dirLight.diffuse",    glm::vec3(0.5f));
+shader.setVec3("dirLight.specular",   glm::vec3(1.0f));
+
+shader.setVec3("pointLight.position", glm::vec3(12.0f, 8.0f, 15.0f));
+shader.setVec3("pointLight.ambient",  glm::vec3(0.05f));
+shader.setVec3("pointLight.diffuse",  glm::vec3(0.8f));
+shader.setVec3("pointLight.specular", glm::vec3(1.0f));
+shader.setFloat("pointLight.constant",  1.0f);
+shader.setFloat("pointLight.linear",    0.09f);
+shader.setFloat("pointLight.quadratic", 0.032f);
+
+
         for (unsigned int i = 0; i < textures.size(); ++i) {
             glActiveTexture(GL_TEXTURE0 + i);
             std::string number;
