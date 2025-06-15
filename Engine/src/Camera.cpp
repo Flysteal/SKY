@@ -36,7 +36,7 @@ void Camera::UpdateMatrix()
 {
     float aspectRatio = static_cast<float>(width) / static_cast<float>(height);
     glm::mat4 view = glm::lookAt(Position, Position + Orientation, Up); 
-    glm::mat4 projection = glm::perspective(glm::radians(fov), aspectRatio, 0.1f, 50.0f);
+    glm::mat4 projection = glm::perspective(glm::radians(fov), aspectRatio, 0.1f, 100.0f);
     camMatrix = projection * view;
 }
 
@@ -74,18 +74,18 @@ void Camera::KeyInput(Shader& shader)
         glPolygonMode(GL_FRONT_AND_BACK, wireframe ? GL_LINE : GL_FILL);
     }
 
-    // if (IsKeyPressed(GLFW_KEY_F)) {
-    //     if (IsKeyPressedOnce(GLFW_KEY_2))
-    //         shader.LoadShaders("../../SKY/game/Shaders/default.vert", "../../SKY/game/Shaders/default.frag");
-    //     if (IsKeyPressedOnce(GLFW_KEY_3))
-    //         shader.LoadShaders("../../SKY/game/Shaders/new.vert", "../../SKY/game/Shaders/new.frag");
-    //     if (IsKeyPressedOnce(GLFW_KEY_4))
-    //         shader.LoadShaders("../../SKY/game/Shaders/light.vert", "../../SKY/game/Shaders/light.frag");
-    //     if (IsKeyPressedOnce(GLFW_KEY_5))
-    //         shader.LoadShaders("../../SKY/game/Shaders/new.vert", "../../SKY/game/Shaders/error.frag");
-    //     if (IsKeyPressedOnce(GLFW_KEY_R))
-    //         shader.LoadShaders("../../SKY/game/Shaders/new.vert", "../../SKY/game/Shaders/new.frag");
-    // }
+    if (IsKeyPressed(GLFW_KEY_F)) {
+        // if (IsKeyPressedOnce(GLFW_KEY_2))
+        //     shader.LoadShaders("../../SKY/game/Shaders/default.vert", "../../SKY/game/Shaders/default.frag");
+        // if (IsKeyPressedOnce(GLFW_KEY_3))
+        //     shader.LoadShaders("../../SKY/game/Shaders/new.vert", "../../SKY/game/Shaders/new.frag");
+        // if (IsKeyPressedOnce(GLFW_KEY_4))
+        //     shader.LoadShaders("../../SKY/game/Shaders/light.vert", "../../SKY/game/Shaders/light.frag");
+        // if (IsKeyPressedOnce(GLFW_KEY_5))
+        //     shader.LoadShaders("../../SKY/game/Shaders/new.vert", "../../SKY/game/Shaders/error.frag");
+        if (IsKeyPressedOnce(GLFW_KEY_R))
+            shader.LoadShaders("../../SKY/Game/Shaders/new.vert", "../../SKY/Game/Shaders/new.frag");
+    }
     // ESC key toggles cursor mode and mouse control
     bool escapePressed = IsKeyPressed(GLFW_KEY_ESCAPE);
     if (escapePressed && !escapePressedLastFrame) {

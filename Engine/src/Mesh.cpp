@@ -45,17 +45,17 @@ Mesh::Mesh(std::vector<Vertex> vertices,    std::vector<unsigned int> indices, s
         shader.setVec3("material.specular", material.specular);
         shader.setFloat("material.shininess", material.shininess);
         shader.setVec3("dirLight.direction",  glm::vec3(-0.2f, -1.0f, -0.3f));
-shader.setVec3("dirLight.ambient",    glm::vec3(0.1f));
-shader.setVec3("dirLight.diffuse",    glm::vec3(0.5f));
-shader.setVec3("dirLight.specular",   glm::vec3(1.0f));
+        shader.setVec3("dirLight.ambient",    glm::vec3(0.1f));
+        shader.setVec3("dirLight.diffuse",    glm::vec3(0.5f));
+        shader.setVec3("dirLight.specular",   glm::vec3(1.0f));
 
-shader.setVec3("pointLight.position", glm::vec3(12.0f, 8.0f, 15.0f));
-shader.setVec3("pointLight.ambient",  glm::vec3(0.05f));
-shader.setVec3("pointLight.diffuse",  glm::vec3(0.8f));
-shader.setVec3("pointLight.specular", glm::vec3(1.0f));
-shader.setFloat("pointLight.constant",  1.0f);
-shader.setFloat("pointLight.linear",    0.09f);
-shader.setFloat("pointLight.quadratic", 0.032f);
+        shader.setVec3("pointLight.position", glm::vec3(12.0f, 8.0f, 15.0f));
+        shader.setVec3("pointLight.ambient",  glm::vec3(0.05f));
+        shader.setVec3("pointLight.diffuse",  glm::vec3(0.8f));
+        shader.setVec3("pointLight.specular", glm::vec3(1.0f));
+        shader.setFloat("pointLight.constant",  1.0f);
+        shader.setFloat("pointLight.linear",    0.09f);
+        shader.setFloat("pointLight.quadratic", 0.032f);
 
 
         for (unsigned int i = 0; i < textures.size(); ++i) {

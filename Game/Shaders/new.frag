@@ -50,23 +50,33 @@ float constant = 1.0f;
 float linear = 0.09f;
 float quadratic = 0.032f;
 
+float near = 0.1; 
+float far  = 100.0; 
+
+
 vec3 CalcDirLight(DirLight light, vec3 normal, vec3 viewDir);
 vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir);
+
+float LinearizeDepth(float depth);
+
 
 void main()
 {
     vec3 norm = normalize(Normal);
     vec3 viewDir = normalize(-FragPos); // assuming camera at (0,0,0)
 
+
     vec3 dirLightColor   = CalcDirLight(dirLight, norm, viewDir);
     vec3 pointLightColor = CalcPointLight(pointLight, norm, FragPos, viewDir);
 
     vec3 baseColor = useTexture ? texture(texture_diffuse, TexCoords).rgb : vertexColor;
-    vec3 result = (dirLightColor + pointLightColor) * baseColor;
+    float depth = LinearizeDepth(gl_FragCoord.z) / far;
+
+    vec3 result = (dirLightColor + pointLightColor) * baseColor + depth;
 
     FragColor = vec4(result, 1.0);
-}
 
+}
 
 vec3 CalcDirLight(DirLight light, vec3 normal, vec3 viewDir) {
     vec3 lightDir = normalize(-light.direction);
@@ -99,4 +109,10 @@ vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir) {
     specular *= attenuation;
 
     return (ambient + diffuse + specular);
+}
+
+float LinearizeDepth(float depth) 
+{
+    float z = depth * 2.0 - 1.0; // back to NDC 
+    return (2.0 * near * far) / (far + near - z * (far - near));    
 }
