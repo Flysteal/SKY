@@ -18,8 +18,6 @@ add_library(Engine STATIC ${ENGINE_SOURCES})
 target_include_directories(Engine PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/include
     # ${CMAKE_CURRENT_SOURCE_DIR}/include/rendering
-    Libs/assimp/include
-
     )
 
-target_link_libraries(Engine PUBLIC glad glfw glm stb imgui assimp)
+target_link_libraries(Engine PUBLIC glad glfw glm stb imgui )

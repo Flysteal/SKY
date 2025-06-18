@@ -2,11 +2,11 @@
 #define MATERIAL_H
 
 #include <string>
+#include "glm/vec3.hpp"
 
 struct Material {
-    std::string name;
-    std::string diffuseTexPath; // map_Kd
-    // You can add more if needed later, e.g. specular, ambient, etc.
+    glm::vec3 diffuseColor = glm::vec3(1.0f);
+    std::string diffuseTexPath;
 };
 
 #endif

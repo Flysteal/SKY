@@ -41,7 +41,7 @@ int main()
 
     glEnable(GL_DEPTH_TEST);
 
-    Model model1("/home/fly/Documents/SKY/Game/RSC/cube.obj");
+    Model model1("/home/fly/Documents/SKY/Game/RSC/Cube/cube.obj");
     // time to load ~ 0.0003874 1 cords.txt     // time to load ~ 0.0606654 1 cube.obj     // time to load ~ 0.2431000 1 TeaPot.obj     // time to load ~ 2.4642400 1 ball.obj     // time to load ~ 47.838000 1 BigBall.obj
 
 
@@ -58,8 +58,16 @@ int main()
         shader.Use();
         shader.setMat4("camMatrix", camera.GetCamMatrix());
 
+
+        // shader.Use();
+        // shader.setInt("diffuseTexture", 0);  // must match the GL_TEXTURE0 unit
+
+        // // If your Texture class uses glBindTexture internally:
+        // texture.Bind(0);  // this is called inside Mesh::Draw
+
         model1.Translate(glm::vec3(1.5f));
         shader.setMat4("model", model1.Matrix);
+        // shader.setBool("useTexture", true);
         model1.Draw(shader);
 
 

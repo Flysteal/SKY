@@ -11,8 +11,6 @@
 
 bool vsync = true;
 
-bool FaceCULL = false;
-bool FrontFace = true;
 
 float cords[] = {12.0f, 8.0f, 0.0f,  1.0f, 5.0f, 14.0f,
                  12.0f, 8.0f, 15.0f, 0.0f, 0.0f, 0.0f};
@@ -51,28 +49,27 @@ void ImGuiSettings::Update() {
     ImGui::Spacing();
 
 
-// Static state variables (persist across frames)
-static bool faceCullingEnabled = true;
-static bool cullFront = false;
-static bool useCCW = false; // false = CW, true = CCW
 
-// UI
-ImGui::SeparatorText("Face Culling");
-ImGui::Checkbox("Enable Face Culling", &faceCullingEnabled);
-ImGui::Checkbox("Cull Front Faces (instead of Back)", &cullFront);
-ImGui::Checkbox("Use CCW Front Faces (instead of CW)", &useCCW);
+    static bool faceCullingEnabled = false;
+    static bool cullFront = false;
+    static bool useCCW = false; // false = CW, true = CCW
 
-// OpenGL State Sync
-if (faceCullingEnabled)
-{
-    glEnable(GL_CULL_FACE);
-    glCullFace(cullFront ? GL_FRONT : GL_BACK);
-    glFrontFace(useCCW ? GL_CCW : GL_CW);
-}
-else
-{
-    glDisable(GL_CULL_FACE);
-}
+
+    ImGui::SeparatorText("Face Culling");
+    ImGui::Checkbox("Enable Face Culling", &faceCullingEnabled);
+    ImGui::Checkbox("Cull Front Faces (instead of Back)", &cullFront);
+    ImGui::Checkbox("Use CCW Front Faces (instead of CW)", &useCCW);
+
+    if (faceCullingEnabled)
+    {
+        glEnable(GL_CULL_FACE);
+        glCullFace(cullFront ? GL_FRONT : GL_BACK);
+        glFrontFace(useCCW ? GL_CCW : GL_CW);
+    }
+    else
+    {
+        glDisable(GL_CULL_FACE);
+    }
 
 
 
