@@ -5,7 +5,7 @@
 #include "Window.h"
 #include "Shader.h"
 #include "Camera.h"
-// #include "Texture.h"
+
 #include "Model.h"
 
 #include "glad/gl.h"
@@ -29,19 +29,20 @@ int main()
 {
     Window window("SkyLands", width, height);
     ImGuiSettings IMGUI(window.GetWindow());
-
     Shader shader;
     shader.LoadShaders("../../SKY/Game/Shaders/color.vert",
                        "../../SKY/Game/Shaders/color.frag");
+    // time to load ~ 0.0304952
 
     Camera camera(window.GetWindow(), width, height);
     Gptr_camera = &camera;
+    // time to load ~ 3.5870002
     glfwSetWindowSizeCallback(window.GetWindow(), window_size_callback);
 
     glEnable(GL_DEPTH_TEST);
 
-
-    Model model1;
+    Model model1("/home/fly/Documents/SKY/Game/RSC/cube.obj");
+    // time to load ~ 0.0003874 1 cords.txt     // time to load ~ 0.0606654 1 cube.obj     // time to load ~ 0.2431000 1 TeaPot.obj     // time to load ~ 2.4642400 1 ball.obj     // time to load ~ 47.838000 1 BigBall.obj
 
 
     while (!window.ShouldClose())

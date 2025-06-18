@@ -16,8 +16,8 @@ public:
 
 int main() {
     B obj;
-    obj.callHello(); // ✅ Works
-    // obj.hello();  ❌ Error: 'hello' is protected
+    obj.callHello(); works 
+    // obj.hello();  not
     return 0;
 }
 

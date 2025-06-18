@@ -1,8 +1,10 @@
 {
-	"folders":
-	[
-		{
-			"path": "."
-		}
-	]
+    "folders":
+    [
+        {
+            "path": ".",
+            "file_exclude_patterns": [],
+            "binary_file_patterns": []
+        }
+    ]
 }
