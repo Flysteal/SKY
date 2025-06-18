@@ -1,6 +1,6 @@
-// Texture.cpp
 #include "Texture.h"
 #include "stb_image.h"
+#include <glad/gl.h>
 #include <iostream>
 
 Texture::Texture(const std::string& path, bool flipVertically)

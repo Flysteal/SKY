@@ -1,7 +1,7 @@
-// Texture.h
-#pragma once
+#ifndef TEXTURE_H
+#define TEXTURE_H
+
 #include <string>
-#include <glad/gl.h>
 
 class Texture {
 public:
@@ -17,3 +17,5 @@ private:
     unsigned int textureID;
     int width, height, nrChannels;
 };
+
+#endif
