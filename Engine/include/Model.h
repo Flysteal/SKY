@@ -21,7 +21,7 @@ public:
 
 private:
     std::vector<Mesh> meshes;
-    Texture diffuseTexture; // error texture
+    Texture diffuseTexture; // texture for errors 
 
     std::unordered_map<std::string, Material> materials;
 
@@ -31,7 +31,7 @@ private:
     std::unordered_map<std::string, Material> loadMTL(const std::string& mtlPath);
 
 
-    std::string directory; // directory of model file (for relative texture paths)
+    std::string directory;
 };
 
 #endif // MODEL_H

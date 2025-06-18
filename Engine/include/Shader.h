@@ -7,7 +7,7 @@
 
 class Shader {
 public:
-    Shader();
+    Shader(const char* vertexFile, const char* fragmentFile);
     ~Shader();
 
     unsigned int ID;

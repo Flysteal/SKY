@@ -18,8 +18,6 @@ Texture::Texture(const std::string& path, bool flipVertically)
 
     if (data)
     {
-        std::cout << "Texture loaded: " << path  << " (" << width << "x" << height << ", " << nrChannels << " channels)\n";
-
         GLenum format = GL_RGB;
         if (nrChannels == 1) format = GL_RED;
         else if (nrChannels == 3) format = GL_RGB;

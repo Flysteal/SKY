@@ -14,7 +14,7 @@
 
 
 Model::Model(const std::string& path)
-    : diffuseTexture("/home/fly/Documents/SKY/Game/RSC/brick.jpg") // fallback texture
+    : diffuseTexture("../../SKY/Game/RSC/brick.jpg") // fallback texture
 {
     size_t lastSlash = path.find_last_of("/\\");
     directory = (lastSlash == std::string::npos) ? "" : path.substr(0, lastSlash);

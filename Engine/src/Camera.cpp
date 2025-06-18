@@ -84,7 +84,7 @@ void Camera::KeyInput(Shader& shader)
         // if (IsKeyPressedOnce(GLFW_KEY_5))
         //     shader.LoadShaders("../../SKY/game/Shaders/new.vert", "../../SKY/game/Shaders/error.frag");
         if (IsKeyPressedOnce(GLFW_KEY_R))
-            shader.LoadShaders("../../SKY/Game/Shaders/new.vert", "../../SKY/Game/Shaders/new.frag");
+            shader.LoadShaders("../../SKY/Game/Shaders/color.vert", "../../SKY/Game/Shaders/color.frag");
     }
     // ESC key toggles cursor mode and mouse control
     bool escapePressed = IsKeyPressed(GLFW_KEY_ESCAPE);

@@ -7,7 +7,10 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-Shader::Shader() = default;
+Shader::Shader(const char* vertexFile, const char* fragmentFile)
+{
+    LoadShaders(vertexFile, fragmentFile);
+}
 
 Shader::~Shader(){ Delete(); }
 
