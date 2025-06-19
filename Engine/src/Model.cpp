@@ -27,10 +27,11 @@ void Model::Draw(Shader& shader)
         mesh.Draw(shader);
 }
 
-void Model::Translate(glm::vec3 vec)
+
+void Model::Translate(glm::vec3 pos)
 {
-    glm::mat4 setter = glm::mat4(1.0f);
-    Matrix = glm::translate(setter, vec);
+    Matrix = glm::mat4(1.0f);
+    Matrix = glm::translate(Matrix, pos);
 }
 
 
