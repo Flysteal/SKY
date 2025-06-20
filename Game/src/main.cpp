@@ -47,7 +47,9 @@ int main()
 
     glEnable(GL_STENCIL_TEST);    
 
-    Model model1("../../SKY/Game/RSC/Cube/cube.obj");
+    Model model1("../../SKY/Game/RSC/Cube/Cube.obj");
+    Model model2("../../SKY/Game/RSC/Grass/Grass.obj");
+
 
 
 while (!window.ShouldClose())
@@ -60,35 +62,40 @@ while (!window.ShouldClose())
     camera.UpdateMatrix();
     camera.KeyInput(shader);
 
-    // --- Pass 1: Draw model normally, write to stencil ---
-    model1.Translate(glm::vec3(1.5));
-
-    glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE); // Keep stencil unless fragment passes
-    glStencilFunc(GL_ALWAYS, 1, 0xFF);         // Always pass stencil test
-    glStencilMask(0xFF);                       // Enable writing to stencil
+        // Draw model write to stencil
+        glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE); // Keep stencil unless fragment passes
+        glStencilFunc(GL_ALWAYS, 1, 0xFF);         // Always pass stencil test
+        glStencilMask(0xFF);                       // Enable writing to stencil
 
     shader.Use();
+    model1.Translate(glm::vec3(1.5));
     shader.setMat4("camMatrix", camera.GetCamMatrix());
     shader.setMat4("model", model1.Matrix);
     model1.Draw(shader);
 
-    // --- Pass 2: Draw outline, but only where stencil != 1 ---
 
-    glStencilFunc(GL_NOTEQUAL, 1, 0xFF);
-    glStencilMask(0x00); // Disable writing to stencil
-    glDisable(GL_DEPTH_TEST);
+        // Draw outline, but only where stencil != 1
+        glStencilFunc(GL_NOTEQUAL, 1, 0xFF);
+        glStencilMask(0x00); // Disable writing to stencil
+        glDisable(GL_DEPTH_TEST);
 
-    shaderOutline.Use();
-    shaderOutline.setMat4("camMatrix", camera.GetCamMatrix());
+        shaderOutline.Use();
+        glm::mat4 scaledModel = glm::scale(model1.Matrix, glm::vec3(1.1f));
+        shaderOutline.setMat4("camMatrix", camera.GetCamMatrix());
+        shaderOutline.setMat4("model", scaledModel);
+        model1.Draw(shaderOutline);
 
-    glm::mat4 scaledModel = glm::scale(model1.Matrix, glm::vec3(1.1f));
-    shaderOutline.setMat4("model", scaledModel);
-    model1.Draw(shaderOutline);
+        // Reset stencil and depth state
+        glStencilMask(0xFF);
+        glStencilFunc(GL_ALWAYS, 0, 0xFF);
+        glEnable(GL_DEPTH_TEST);
 
-    // Reset stencil and depth state
-    glStencilMask(0xFF);
-    glStencilFunc(GL_ALWAYS, 0, 0xFF);
-    glEnable(GL_DEPTH_TEST);
+    shader.Use();
+    // model1.Translate(glm::vec3(1.5));
+    shader.setMat4("camMatrix", camera.GetCamMatrix());
+    shader.setMat4("model", model2.Matrix);
+    model2.Draw(shader);
+
 
 
     IMGUI.Update();

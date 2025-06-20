@@ -1,4 +1,4 @@
-mtllib cube.mtl
+mtllib Cube.mtl
 usemtl RedMaterial
 
 # Vertices
