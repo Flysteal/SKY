@@ -14,12 +14,13 @@
 
 
 Model::Model(const std::string& path)
-    : diffuseTexture("../../SKY/Game/RSC/brick.jpg") // fallback texture
+    : fallbackTexture(std::make_shared<Texture>("../../SKY/Game/RSC/RGBA.png"))
 {
     size_t lastSlash = path.find_last_of("/\\");
     directory = (lastSlash == std::string::npos) ? "" : path.substr(0, lastSlash);
     loadModel(path);
 }
+
 
 void Model::Draw(Shader& shader)
 {
@@ -27,12 +28,17 @@ void Model::Draw(Shader& shader)
         mesh.Draw(shader);
 }
 
-
-void Model::Translate(glm::vec3 pos)
+// position vec3, rotation vec3, scale vec3
+void Model::SetTransform(glm::vec3 position, glm::vec3 rotation, glm::vec3 scale)
 {
     Matrix = glm::mat4(1.0f);
-    Matrix = glm::translate(Matrix, pos);
+    Matrix = glm::translate(Matrix, position);
+    Matrix = glm::rotate(Matrix, glm::radians(rotation.x), glm::vec3(1,0,0));
+    Matrix = glm::rotate(Matrix, glm::radians(rotation.y), glm::vec3(0,1,0));
+    Matrix = glm::rotate(Matrix, glm::radians(rotation.z), glm::vec3(0,0,1));
+    Matrix = glm::scale(Matrix, scale);
 }
+
 
 
 std::unordered_map<std::string, Material> Model::loadMTL(const std::string& path) {
@@ -171,16 +177,16 @@ void Model::loadModel(const std::string& path)
     // Inside loadModel()
     for (auto& pair : materialVertices) {
         const std::string& matName = pair.first;
-        std::vector<Vertex>& verts = pair.second;
-        std::vector<unsigned int>& inds = materialIndices[matName];
+        const std::vector<Vertex>& verts = pair.second;
+        const std::vector<unsigned int>& inds = materialIndices[matName];
 
-        Texture texture = std::move(diffuseTexture);  // fallback
+        std::shared_ptr<Texture> texture = fallbackTexture;
 
         if (materials.count(matName) && !materials[matName].diffuseTexPath.empty()) {
             std::string texFullPath = directory + "/" + materials[matName].diffuseTexPath;
-            texture = Texture(texFullPath);
+            texture = std::make_shared<Texture>(texFullPath);
         }
 
-        meshes.emplace_back(std::move(verts), std::move(inds), std::move(texture));
+        meshes.emplace_back(std::move(verts), std::move(inds), texture);
     }
 }

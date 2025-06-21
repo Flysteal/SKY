@@ -8,18 +8,18 @@ public:
     Texture(const std::string& path, bool flipVertically = true);
     ~Texture();
 
-    // Delete copy constructor and copy assignment
+    // Prevent copying (OpenGL texture IDs should not be copied)
     Texture(const Texture&) = delete;
     Texture& operator=(const Texture&) = delete;
 
-    // Allow move constructor and move assignment
+    // Move is optional if you plan to store Texture only via shared_ptr
     Texture(Texture&& other) noexcept;
     Texture& operator=(Texture&& other) noexcept;
 
     void Bind(unsigned int slot = 0) const;
     void Unbind() const;
 
-    inline unsigned int GetID() const { return textureID; }
+    unsigned int GetID() const { return textureID; }
 
 private:
     unsigned int textureID = 0;

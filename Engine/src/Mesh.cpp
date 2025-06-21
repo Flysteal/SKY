@@ -2,27 +2,30 @@
 
 #include <glad/gl.h>
 
-Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, Texture&& texture)
+Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::shared_ptr<Texture> texture)
     : vertices(std::move(vertices)), indices(std::move(indices)), texture(std::move(texture))
 {
     setupMesh();
 }
 
+
 void Mesh::Draw(Shader& shader)
 {
-    shader.Use();
+        // shader.Use();
 
-    if (texture.GetID() != 0)
-    {
-        glActiveTexture(GL_TEXTURE0);
-        texture.Bind(0);
-        shader.setInt("diffuseTexture", 0);
-    }
-
+    // if (texture.GetID() != 0)
+    // {
+    //     glActiveTexture(GL_TEXTURE0);
+    //     texture.Bind(0);
+    //     shader.setInt("diffuseTexture", 0);
+    // } 
+    texture->Bind();
     glBindVertexArray(VAO);
     glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(indices.size()), GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
+    texture->Unbind();
 }
+
 
 void Mesh::setupMesh()
 {

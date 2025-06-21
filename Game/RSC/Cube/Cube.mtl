@@ -1,3 +1,3 @@
-newmtl material_0
+newmtl CubeMaterial
+
 map_Kd brick.jpg
-Kd 1.0 1.0 1.0

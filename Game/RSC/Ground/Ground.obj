@@ -1,0 +1,20 @@
+mtllib Ground.mtl
+usemtl GroundMaterial
+
+# Vertices
+v -0.5 -0.5 -0.5
+v  0.5 -0.5 -0.5
+v -0.5 -0.5  0.5
+v  0.5 -0.5  0.5
+
+# Texture
+vt 0.0 0.0
+vt 1.0 0.0
+vt 0.0 1.0
+vt 1.0 1.0
+
+# Normal
+vn 0.0 1.0 0.0
+
+f 1/1/1 2/2/1 4/4/1
+f 1/1/1 4/4/1 3/3/1
