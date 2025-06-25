@@ -68,6 +68,13 @@ std::unordered_map<std::string, Material> Model::loadMTL(const std::string& path
                 materials[currentMaterialName].diffuseColor = glm::vec3(r, g, b);
             }
         }
+        else if (prefix == "d") {
+            float alpha;
+            iss >> alpha;
+            if (!currentMaterialName.empty()) {
+                materials[currentMaterialName].alpha = alpha;
+            }
+        }
         else if (prefix == "map_Kd") {
             std::string texturePath;
             iss >> texturePath;

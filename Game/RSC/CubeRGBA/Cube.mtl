@@ -1,0 +1,4 @@
+newmtl CubeMaterial
+Kd 1.0 0.0 1.0           # Purple color
+d 0.3                   # 30% opaque (70% transparent)
+illum 2

@@ -33,12 +33,10 @@ int main()
     ImGuiSettings IMGUI(window.GetWindow());
 
     Shader shader("../../SKY/Game/Shaders/color.vert", "../../SKY/Game/Shaders/color.frag");
-    Shader shaderOutline("../../SKY/Game/Shaders/new.vert", "../../SKY/Game/Shaders/new.frag");
-    // time to load ~ 0.0304952
 
     Camera camera(window.GetWindow(), width, height);
-    Gptr_camera = &camera;
     // time to load ~ 3.5870002
+    Gptr_camera = &camera;
 
     glfwSetWindowSizeCallback(window.GetWindow(), window_size_callback);
 
@@ -47,11 +45,12 @@ int main()
 
     glEnable(GL_STENCIL_TEST);    
 
-    Model model1("../../SKY/Game/RSC/Cube/Cube.obj");
-    Model model2("../../SKY/Game/RSC/Grass/Grass.obj");
-    Model model3("../../SKY/Game/RSC/Ground/Ground.obj");
+    Model model1("../../SKY/Game/RSC/CubeRGBA/Cube.obj");
 
 
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); 
+    
 
     while (!window.ShouldClose())
     {
@@ -63,46 +62,18 @@ int main()
         camera.UpdateMatrix();
         camera.KeyInput(shader);
 
-// {
-            // Draw model write to stencil
-            glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE); // Keep stencil unless fragment passes
-            glStencilFunc(GL_ALWAYS, 1, 0xFF);         // Always pass stencil test
-            glStencilMask(0xFF);                       // Enable writing to stencil
-
         shader.Use();
-        model3.SetTransform(glm::vec3(1.0f, 0.0f, 1.0f), glm::vec3(0.0f), glm::vec3(0.5f));
+        // model1.SetTransform(glm::vec3(1.0f, 0.0f, 1.0f), glm::vec3(0.0f), glm::vec3(0.5f));
         shader.setMat4("camMatrix", camera.GetCamMatrix());
         shader.setMat4("model", model1.Matrix);
+        // shader.setFloat("materialAlpha", materials.alpha);
+
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        glDepthMask(GL_FALSE);
         model1.Draw(shader);
+        glDepthMask(GL_TRUE);
 
-            // Draw outline, but only where stencil != 1
-            glStencilFunc(GL_NOTEQUAL, 1, 0xFF);
-            glStencilMask(0x00); // Disable writing to stencil
-            glDisable(GL_DEPTH_TEST);
-
-            shaderOutline.Use();
-            glm::mat4 scaledModel = glm::scale(model1.Matrix, glm::vec3(1.1f));
-            shaderOutline.setMat4("camMatrix", camera.GetCamMatrix());
-            shaderOutline.setMat4("model", scaledModel);
-            model1.Draw(shaderOutline);
-
-            // Reset stencil and depth state
-            glStencilMask(0xFF);
-            glStencilFunc(GL_ALWAYS, 0, 0xFF);
-            glEnable(GL_DEPTH_TEST);
-// }
-
-        shader.Use();
-        shader.setMat4("camMatrix", camera.GetCamMatrix());
-        // model3.SetTransform(glm::vec3(0.0f, 24.5f, 0.0f), glm::vec3(0.0f), glm::vec3(50.0f));
-        shader.setMat4("model", model2.Matrix);
-        model2.Draw(shader);
-
-        shader.Use();
-        model3.SetTransform(glm::vec3(0.0f, 24.5f, 0.0f), glm::vec3(0.0f), glm::vec3(50.0f));
-        shader.setMat4("camMatrix", camera.GetCamMatrix());
-        shader.setMat4("model", model3.Matrix);
-        model3.Draw(shader);
 
 
         IMGUI.Update();
