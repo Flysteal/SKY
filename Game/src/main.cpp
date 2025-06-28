@@ -2,7 +2,6 @@
 
 #include "ImGuiSettings.h"
 #include "DeltaTime.h"
-#include "Window.h"
 #include "Shader.h"
 #include "Camera.h"
 
@@ -11,6 +10,7 @@
 #include "glad/gl.h"
 #include "GLFW/glfw3.h"
 #include <glm/gtc/matrix_transform.hpp>
+#include "Window.h"
 
 
 int height = 800;

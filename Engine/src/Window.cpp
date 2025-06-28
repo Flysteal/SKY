@@ -1,7 +1,7 @@
+#include <glad/gl.h>
 #include "Window.h"
 
-#include <glad/gl.h>
-#include <GLFW/glfw3.h>
+// #include <GLFW/glfw3.h>
 
 #include <iostream>
 
